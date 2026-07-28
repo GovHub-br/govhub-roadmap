@@ -5,57 +5,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GovHub — Documentação</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
   :root{
-    --purple:#6b3fa0;
-    --purple-dark:#4a2b70;
-    --purple-light:#f3edfa;
-    --bg:#faf9fc;
-    --ink:#1f1a24;
-    --muted:#6e6577;
-    --line:#e4dced;
-    --amber:#b8860b;
-    --amber-bg:#fdf6e3;
-    --gap:#9a3b3b;
-    --gap-bg:#fbeaea;
-    --dup:#c07a1e;
-    --done:#3f7d5c;
-    --green:#3f7d5c;
-    --green-bg:#eef6f1;
-    --blue:#2f6690;
-    --brown:#a15c2e;
-    --edge:#c9bcdd;
+    /* Marca GovHub — roxo é a assinatura, laranja é acento pontual (~10%) */
+    --purple:#7A34F3;
+    --purple-hover:#7C3AAD;
+    --purple-dark:#5B21B6;   /* texto roxo sobre branco: garante AA */
+    --purple-soft:#8B5CF6;
+    --purple-light:#F1EAFE;
+    --accent:#F97316;
+
+    --bg:#F7F7F7;
+    --bg-subtle:#F8F9FA;
+    --ink:#202020;
+    --body:#2D3748;
+    --muted:#666666;
+    --line:#E3E0EA;
+
+    /* Estados do board */
+    --amber:#9A6B00;
+    --amber-bg:#FDF6E3;
+    --gap:#9A3B3B;
+    --gap-bg:#FBEAEA;
+    --dup:#A8620F;
+    --done:#0B7355;
+
+    /* Tipos Diátaxis — escurecidos p/ contraste AA com texto branco */
+    --green:#0B7355;
+    --green-bg:#EAF6F1;
+    --blue:#2F6690;
+    --brown:#8F4F26;
+
+    --edge:#CFC2E8;
+
+    --font-family-base:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --font-family-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --shadow-md:0 2px 10px rgba(0,0,0,.1);
+    --shadow-lg:0 4px 20px rgba(0,0,0,.1);
+    --radius-sm:6px;
+    --radius-md:10px;
+    --radius-lg:16px;
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","IBM Plex Sans","Segoe UI",sans-serif;
+    font-family:var(--font-family-base);
     background:var(--bg);
-    color:var(--ink);
+    color:var(--body);
   }
-  #view-board[hidden], #view-instalacao[hidden]{display:none;}
+  #view-roadmap[hidden], #view-instalacao[hidden], #view-doc[hidden]{display:none;}
 
-  /* ===================== VIEW: BOARD (Apple-style docs shell) ===================== */
-  #view-board .topbar{
+  /* ===================== VIEW: ROADMAP (espinha única, estilo roadmap.sh) ===================== */
+  #view-roadmap .topbar{
     position:sticky;
     top:0;
     z-index:20;
-    padding:16px 28px;
+    padding:14px 28px;
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:16px;
-    background:rgba(250,249,252,.9);
+    background:rgba(247,247,247,.9);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
-  #view-board .topbar h1{
+  #view-roadmap .topbar h1{
     margin:0;
     font-size:19px;
     font-weight:700;
     color:var(--purple-dark);
     letter-spacing:-.01em;
   }
-  #view-board .topbar .sub{
+  #view-roadmap .topbar .sub{
     font-size:11.5px;
     color:var(--muted);
     margin-top:2px;
@@ -89,106 +112,139 @@
   .overall .bar{width:90px;height:5px;background:var(--line);border-radius:5px;overflow:hidden;}
   .overall .bar>span{display:block;height:100%;background:var(--purple);width:0%;transition:width .25s ease;}
 
-  .doc-shell{
-    display:grid;
-    grid-template-columns:260px 1fr;
-    max-width:1200px;
-    margin:0 auto;
-    align-items:start;
-  }
-
-  .sidebar{
-    position:sticky;
-    top:64px;
-    padding:24px 12px 60px 24px;
-    display:flex;
-    flex-direction:column;
-    gap:2px;
-  }
-  .sidebar-title{
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.06em;
-    color:var(--muted);
-    font-weight:700;
-    padding:0 12px 8px;
-  }
-  .side-item{
+  .legend-bar{
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    gap:8px;
-    text-align:left;
-    background:none;
-    border:none;
-    border-radius:8px;
-    padding:9px 12px;
-    font-size:13.5px;
-    font-family:inherit;
-    color:var(--ink);
-    cursor:pointer;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    padding:14px 24px 0;
   }
-  .side-item:hover{background:var(--purple-light);}
-  .side-item.active{background:var(--purple);color:#fff;font-weight:600;}
-  .side-item.active .side-count{color:rgba(255,255,255,.85);}
-  .side-count{font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums;}
-  .side-draft{font-size:9px;text-transform:uppercase;background:var(--purple-light);color:var(--purple);border-radius:20px;padding:1px 6px;margin-left:4px;}
-
-  .content{padding:24px 28px 100px;min-width:0;}
-
   .type-legend{display:flex;gap:6px;flex-wrap:wrap;}
-  .type-legend .type{cursor:pointer;}
+  .type-legend .type{cursor:pointer;margin-left:0;opacity:.5;}
+  .type-legend .type.active{opacity:1;box-shadow:0 0 0 2px rgba(0,0,0,.07);}
+  .type.all{background:var(--purple-dark);}
+  .legend-hint{font-size:11px;color:var(--muted);}
 
-  .doc-section{display:none;}
-  .doc-section.active{display:block;}
-  .doc-section h2{
-    font-size:22px;
-    margin:6px 0 4px;
-    color:var(--purple-dark);
-    letter-spacing:-.01em;
-  }
-  .section-desc{
-    font-size:13px;
-    color:var(--muted);
-    margin:0 0 20px;
-    max-width:640px;
-    line-height:1.5;
-  }
-
-  .draft-banner{
-    background:var(--purple-light);
-    border:1px dashed var(--purple);
-    color:var(--purple-dark);
-    font-size:12.5px;
-    border-radius:10px;
-    padding:12px 16px;
-    margin-bottom:20px;
-    line-height:1.5;
-  }
-
-  .cards{display:flex;flex-direction:column;gap:10px;max-width:720px;}
-
-  .node{
+  .rm-canvas{
     position:relative;
-    padding:11px 40px 11px 40px;
+    max-width:1000px;
+    margin:30px auto 80px;
+    padding:0 24px;
+  }
+  svg#rmEdges{
+    position:absolute;
+    top:0;left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    overflow:visible;
+  }
+  svg#rmEdges path{fill:none;stroke:var(--edge);stroke-width:2;}
+  svg#rmEdges path.spine{stroke:var(--purple-soft);stroke-width:2.5;}
+
+  .rm-stage{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
+  .rm-gap{height:40px;}
+
+  .rm-node{
+    position:relative;
+    border-radius:var(--radius-md);
+    text-align:center;
+    box-shadow:var(--shadow-md);
+  }
+  .rm-node.root{
+    background:var(--purple-dark);
+    color:#fff;
+    border:1px solid var(--purple-dark);
+    font-weight:700;
+    font-size:16px;
+    padding:13px 28px;
+  }
+  .rm-node.root .note{color:rgba(255,255,255,.75);font-size:11px;margin-top:3px;}
+  .rm-node.section{
+    background:var(--purple);
+    color:#fff;
+    border:1px solid var(--purple);
+    font-weight:700;
+    font-size:15px;
+    padding:12px 24px;
+    min-width:280px;
+    max-width:420px;
+  }
+  .sec-title{letter-spacing:-.01em;}
+  .sec-count{
+    font-size:10.5px;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+    background:rgba(255,255,255,.22);
+    border-radius:20px;
+    padding:2px 8px;
+    margin-left:8px;
+    vertical-align:1px;
+  }
+  .rm-node.section .note{
+    color:rgba(255,255,255,.85);
+    font-size:11px;
+    font-weight:400;
+    line-height:1.4;
+    margin-top:5px;
+  }
+
+  .rm-row{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px 14px;
+    margin-top:28px;
+    max-width:900px;
+  }
+
+  .rm-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
     background:#fff;
     border:1px solid var(--line);
-    border-radius:10px;
-    font-size:13.5px;
-    line-height:1.4;
-    box-shadow:0 1px 2px rgba(80,40,120,.04);
-    transition:box-shadow .12s ease, border-color .12s ease, opacity .15s ease;
+    border-radius:9px;
+    padding:8px 12px 8px 10px;
+    font-size:12.5px;
+    line-height:1.3;
+    cursor:pointer;
+    user-select:none;
+    box-shadow:0 1px 2px rgba(80,40,120,.06);
+    transition:box-shadow .12s ease, border-color .12s ease, opacity .18s ease;
   }
-  .node:hover{box-shadow:0 4px 12px rgba(80,40,120,.10);border-color:var(--purple);}
-  .node.hidden{display:none;}
+  .rm-item:hover{border-color:var(--purple);box-shadow:var(--shadow-md);}
 
-  .check{
-    position:absolute;
-    left:11px;
-    top:12px;
-    width:17px;
-    height:17px;
-    border-radius:5px;
+  /* Selos: tipo Diátaxis e estado, ao lado do nome dentro do box */
+  .type, .tag{
+    display:inline-block;
+    flex:none;
+    font-size:9px;
+    line-height:1.5;
+    padding:2px 7px;
+    border-radius:20px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    white-space:nowrap;
+    color:#fff;
+  }
+  .type.tutorial{background:var(--green);}
+  .type.guia{background:var(--blue);}
+  .type.referencia{background:var(--purple);}
+  .type.explicacao{background:var(--brown);}
+  .tag{background:var(--muted);}
+
+  .rm-item .rm-title{flex:1 1 auto;}
+  .rm-item .type,
+  .rm-item .tag{margin-left:2px;}
+
+  .rm-check{
+    width:15px;
+    height:15px;
+    flex:none;
+    border-radius:4px;
     border:1.5px solid var(--line);
     background:#fff;
     cursor:pointer;
@@ -197,79 +253,41 @@
     align-items:center;
     justify-content:center;
   }
-  .check svg{width:11px;height:11px;opacity:0;stroke:#fff;stroke-width:3;fill:none;}
+  .rm-check svg{width:10px;height:10px;opacity:0;stroke:#fff;stroke-width:3;fill:none;}
+  .rm-item.done{opacity:.45;}
+  .rm-item.done .rm-check{background:var(--done);border-color:var(--done);}
+  .rm-item.done .rm-check svg{opacity:1;}
+  .rm-item.done .rm-title{text-decoration:line-through;text-decoration-color:var(--muted);}
 
-  .open{
-    position:absolute;
-    right:11px;
-    top:11px;
-    width:18px;
-    height:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--muted);
-    text-decoration:none;
-    border-radius:4px;
-    font-size:12px;
-    background:none;
-    border:none;
-    cursor:pointer;
-    font-family:inherit;
-  }
-  .open:hover{color:var(--purple);background:var(--purple-light);}
+  .rm-item[data-tag="lacuna"]{background:var(--amber-bg);border-style:dashed;}
+  .rm-item[data-tag="lacuna"] .tag{background:var(--amber);}
+  .rm-item[data-tag="gap"]{background:var(--gap-bg);border-style:dashed;}
+  .rm-item[data-tag="gap"] .tag{background:var(--gap);}
+  .rm-item[data-tag="gap"] .rm-title{color:var(--gap);font-weight:600;}
+  .rm-item[data-tag="dup"] .tag{background:var(--dup);}
+  .rm-item[data-tag="rascunho"]{border-style:dashed;}
+  .rm-item[data-tag="rascunho"] .tag{background:#fff;color:var(--purple-dark);border:1px solid var(--purple);}
 
-  .title{font-weight:600;}
-  .note{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .rm-item.dim{opacity:.16;}
+  .rm-item.hit{border-color:var(--accent);box-shadow:0 0 0 2px rgba(249,115,22,.3);}
 
-  .type, .tag{
-    display:inline-block;
-    margin-left:6px;
-    font-size:9.5px;
-    padding:2px 7px;
-    border-radius:20px;
-    font-weight:700;
-    letter-spacing:.03em;
-    text-transform:uppercase;
-    vertical-align:middle;
-    color:#fff;
-  }
-  .type.tutorial{background:var(--green);}
-  .type.guia{background:var(--blue);}
-  .type.referencia{background:var(--purple);}
-  .type.explicacao{background:var(--brown);}
-  .type-legend .type{opacity:.55;}
-  .type-legend .type.active{opacity:1;box-shadow:0 0 0 2px rgba(0,0,0,.06);}
-
-  .node[data-tag="lacuna"]{border-style:dashed;background:var(--amber-bg);}
-  .node[data-tag="lacuna"] .tag{background:var(--amber);}
-  .node[data-tag="gap"]{border-style:dashed;background:var(--gap-bg);}
-  .node[data-tag="gap"] .tag{background:var(--gap);}
-  .node[data-tag="gap"] .title{color:var(--gap);}
-  .node[data-tag="dup"] .tag{background:var(--dup);}
-  .node[data-tag="rascunho"]{border-style:dashed;}
-  .node[data-tag="rascunho"] .tag{background:#fff;color:var(--purple);border:1px solid var(--purple);}
-
-  .node.done{opacity:.5;}
-  .node.done .check{background:var(--done);border-color:var(--done);}
-  .node.done .check svg{opacity:1;}
-  .node.done .title{text-decoration:line-through;text-decoration-color:var(--muted);}
-
-  #view-board footer{
-    max-width:1200px;
+  #view-roadmap footer{
+    max-width:900px;
     margin:0 auto;
-    padding:20px 28px 60px 284px;
+    padding:0 24px 70px;
     font-size:12px;
     color:var(--muted);
   }
-  #view-board footer h2{font-size:14px;color:var(--ink);margin-bottom:8px;}
-  #view-board footer ul{margin:0;padding-left:18px;}
-  #view-board footer li{margin-bottom:4px;}
+  #view-roadmap footer h2{font-size:14px;color:var(--ink);margin-bottom:8px;}
+  #view-roadmap footer ul{margin:0;padding-left:18px;}
+  #view-roadmap footer li{margin-bottom:5px;}
+  #view-roadmap footer code{font-family:var(--font-family-mono);font-size:11px;background:var(--purple-light);color:var(--purple-dark);padding:1px 5px;border-radius:4px;}
+  #view-roadmap footer a{color:var(--purple-dark);}
 
-  @media (max-width:860px){
-    .doc-shell{grid-template-columns:1fr;}
-    .sidebar{position:static;flex-direction:row;flex-wrap:wrap;padding:16px 20px;}
-    #view-board footer{padding-left:28px;}
+  @media (max-width:720px){
+    #view-roadmap .topbar{flex-direction:column;align-items:flex-start;}
+    .rm-node.section{min-width:0;width:100%;}
+    #search{width:100%;}
   }
 
   /* ===================== VIEW: INSTALAÇÃO ===================== */
@@ -280,7 +298,7 @@
     padding:18px 24px;
     text-align:center;
     border-bottom:1px solid var(--line);
-    background:rgba(250,249,252,.92);
+    background:rgba(247,247,247,.92);
     backdrop-filter:blur(6px);
   }
   a.back, button.back{
@@ -391,7 +409,7 @@
   .im-node.primary .note{color:rgba(255,255,255,.8);}
 
   .im-node.small{font-size:12px;padding:7px 12px;color:var(--ink);}
-  .im-node.code{font-family:"JetBrains Mono",monospace;font-size:11.5px;background:#fdfcff;}
+  .im-node.code{font-family:var(--font-family-mono);font-size:11.5px;background:#FDFCFF;}
 
   .im-node.link{
     background:var(--green-bg);
@@ -425,6 +443,130 @@
   @media (max-width:640px){
     .im-node.primary{min-width:0;width:100%;}
   }
+
+  /* ===================== VIEW: DOC (.md renderizado) ===================== */
+  #view-doc header{
+    position:sticky;
+    top:0;
+    z-index:30;
+    padding:16px 24px;
+    border-bottom:1px solid var(--line);
+    background:rgba(247,247,247,.92);
+    backdrop-filter:blur(6px);
+  }
+  .doc-head-inner{max-width:760px;margin:0 auto;}
+  #view-doc header h1{
+    margin:0;
+    font-size:21px;
+    font-weight:700;
+    color:var(--purple-dark);
+    letter-spacing:-.01em;
+  }
+  #docCrumb{font-size:11.5px;color:var(--muted);}
+
+  .doc-body{
+    max-width:760px;
+    margin:0 auto;
+    padding:36px 24px 120px;
+    font-size:15px;
+    line-height:1.65;
+    color:var(--body);
+  }
+  .doc-body h1{
+    font-size:27px;
+    color:var(--purple-dark);
+    letter-spacing:-.015em;
+    margin:0 0 6px;
+  }
+  .doc-body h2{
+    font-size:20px;
+    color:var(--purple-dark);
+    margin:34px 0 10px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .doc-body h3{font-size:16px;color:var(--ink);margin:24px 0 6px;}
+  .doc-body h4{font-size:14px;color:var(--ink);margin:18px 0 4px;}
+  .doc-body p{margin:0 0 14px;}
+  .doc-body ul,.doc-body ol{margin:0 0 14px;padding-left:22px;}
+  .doc-body li{margin-bottom:5px;}
+  .doc-body a{color:var(--purple-dark);text-decoration:underline;text-underline-offset:2px;}
+  .doc-body a:hover{color:var(--purple);}
+  .doc-body strong{color:var(--ink);font-weight:600;}
+  .doc-body hr{border:none;border-top:1px solid var(--line);margin:28px 0;}
+
+  .doc-body code{
+    font-family:var(--font-family-mono);
+    font-size:.87em;
+    background:var(--purple-light);
+    color:var(--purple-dark);
+    padding:1.5px 5px;
+    border-radius:var(--radius-sm);
+  }
+  .doc-body pre{
+    background:#FBFAFD;
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:14px 16px;
+    overflow-x:auto;
+    margin:0 0 16px;
+  }
+  .doc-body pre code{background:none;color:var(--body);padding:0;font-size:12.5px;line-height:1.55;}
+
+  .doc-body blockquote{
+    margin:0 0 16px;
+    padding:2px 0 2px 16px;
+    border-left:3px solid var(--purple);
+    color:var(--muted);
+  }
+  .doc-body blockquote p:last-child{margin-bottom:0;}
+
+  .table-wrap{overflow-x:auto;margin:0 0 18px;}
+  .doc-body table{border-collapse:collapse;width:100%;font-size:13.5px;}
+  .doc-body thead th{
+    background:var(--purple);
+    color:#fff;
+    text-align:left;
+    font-weight:600;
+    padding:9px 12px;
+  }
+  .doc-body tbody td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .doc-body tbody tr:nth-child(even){background:var(--bg-subtle);}
+
+  /* Único uso do laranja: chamada de ação do que ainda falta escrever */
+  .todo-callout{
+    background:#FFF7ED;
+    border-left:4px solid var(--accent);
+    border-radius:0 var(--radius-md) var(--radius-md) 0;
+    padding:13px 16px;
+    margin:0 0 26px;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.5;
+  }
+  .todo-callout strong{color:#9A3F09;}
+
+  .doc-meta{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:0 0 24px;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .doc-meta .type{margin-left:0;}
+
+  .doc-error{
+    background:var(--gap-bg);
+    border:1px dashed var(--gap);
+    color:var(--gap);
+    border-radius:var(--radius-md);
+    padding:16px;
+    font-size:13.5px;
+    line-height:1.55;
+  }
+  .doc-error code{background:rgba(154,59,59,.09);color:inherit;}
 </style>
 </head>
 <body>
@@ -432,353 +574,166 @@
 <!-- ============================================================ -->
 <!-- VIEW: BOARD                                                    -->
 <!-- ============================================================ -->
-<div id="view-board">
+<div id="view-roadmap">
 
 <div class="topbar">
   <div>
-    <h1>GovHub — Documentação</h1>
-    <div class="sub">Organizada por seção, tipos de conteúdo misturados (tutorial · guia · referência · explicação)</div>
+    <h1>GovHub &mdash; Documenta&ccedil;&atilde;o</h1>
+    <div class="sub">Roadmap completo &middot; 47 documentos &middot; tipo pelo framework Di&aacute;taxis</div>
   </div>
   <div class="topbar-right">
     <div class="overall"><span id="overallLabel">0/0</span><div class="bar"><span id="overallBar"></span></div></div>
-    <input type="text" id="search" placeholder="Buscar nesta seção…">
+    <input type="text" id="search" placeholder="Buscar no roadmap&hellip;">
     <button id="resetBtn" type="button">Zerar progresso</button>
   </div>
 </div>
 
-<div class="doc-shell">
-  <nav class="sidebar" id="sidebar">
-    <div class="sidebar-title">Seções</div>
-    <button class="side-item active" data-section="config">Configurações Gerais<span class="side-count" data-count="config">0/0</span></button>
-    <button class="side-item" data-section="arch">Arquitetura<span class="side-count" data-count="arch">0/0</span></button>
-    <button class="side-item" data-section="data">Dados &amp; Pipeline<span class="side-count" data-count="data">0/0</span></button>
-    <button class="side-item" data-section="dash">Dashboards &amp; Relatórios<span class="side-count" data-count="dash">0/0</span></button>
-    <button class="side-item" data-section="infra">Infraestrutura<span class="side-count" data-count="infra">0/0</span></button>
-    <button class="side-item" data-section="gov">Governança<span class="side-count" data-count="gov">0/0</span></button>
-    <button class="side-item" data-section="community">Comunidade &amp; Contribuição<span class="side-count" data-count="community">0/0</span></button>
-  </nav>
+<div class="legend-bar">
+  <div class="type-legend" id="typeLegend">
+    <span class="type all active" data-type="">tudo</span>
+    <span class="type tutorial" data-type="tutorial">tutorial</span>
+    <span class="type guia" data-type="guia">guia</span>
+    <span class="type referencia" data-type="referencia">refer&ecirc;ncia</span>
+    <span class="type explicacao" data-type="explicacao">explica&ccedil;&atilde;o</span>
+  </div>
+  <div class="legend-hint">clique num box para abrir o documento &middot; clique no quadrado para marcar como lido</div>
+</div>
 
-  <main class="content">
-    <div class="type-legend" id="typeLegend" style="margin-bottom:16px;">
-      <span class="type tutorial active" data-type="">tudo</span>
-      <span class="type tutorial" data-type="tutorial">tutorial</span>
-      <span class="type guia" data-type="guia">guia</span>
-      <span class="type referencia" data-type="referencia">referência</span>
-      <span class="type explicacao" data-type="explicacao">explicação</span>
+<div class="rm-canvas" id="rmCanvas">
+  <svg id="rmEdges"></svg>
+
+  <div class="rm-stage">
+    <div class="rm-node root" id="rm-root">GovHub &mdash; Documenta&ccedil;&atilde;o<div class="note">47 documentos em 7 se&ccedil;&otilde;es</div></div>
+  </div>
+  <div class="rm-gap"></div>
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-config" data-parent="rm-root">
+      <span class="sec-title">Configurações Gerais</span><span class="sec-count" data-count="config">0/7</span>
+      <div class="note">Primeiro contato com o projeto: instalar, configurar variáveis, conectar fontes e resolver os tropeços mais comuns do dia 1.</div>
     </div>
+    <div class="rm-row">
+      <div class="rm-item" id="cfg-1" data-parent="sec-config" data-type="tutorial" data-md="cfg-01-instalacao"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Instalação</span><span class="type tutorial">tutorial</span></div>
+      <div class="rm-item" id="cfg-2" data-parent="sec-config" data-type="tutorial" data-md="cfg-02-deploy-inicial"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Deploy Inicial</span><span class="type tutorial">tutorial</span></div>
+      <div class="rm-item" id="cfg-3" data-parent="sec-config" data-type="referencia" data-md="cfg-03-requisitos"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Requisitos</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="cfg-4" data-parent="sec-config" data-type="guia" data-md="cfg-04-conectar-fontes"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Conectar Fontes</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="cfg-5" data-parent="sec-config" data-type="referencia" data-md="cfg-05-secrets"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Gerenciamento de Secrets</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="cfg-6" data-parent="sec-config" data-type="guia" data-md="cfg-06-git-workflow"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Git Workflow</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="cfg-7" data-parent="sec-config" data-type="guia" data-md="cfg-07-troubleshooting"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Troubleshooting</span><span class="type guia">guia</span></div>
+    </div>
+  </div>
+  <div class="rm-gap"></div>
 
-    <!-- SEÇÃO: CONFIGURAÇÕES GERAIS -->
-    <section class="doc-section active" data-section="config">
-      <h2>Configurações Gerais</h2>
-      <p class="section-desc">Primeiro contato com o projeto: instalar, configurar variáveis, conectar fontes e resolver os tropeços mais comuns do dia 1.</p>
-      <div class="cards">
-        <div class="node" id="cfg-1" data-type="tutorial">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Instalação<span class="type tutorial">tutorial</span></span>
-          <div class="note">público: dev / contribuidor · ambiente local completo (Airflow, dbt, Postgres, Superset, Jupyter)</div>
-          <button class="open" type="button" onclick="showInstalacao()" title="Ver roadmap desta página">↗</button>
-        </div>
-        <div class="node" id="cfg-2" data-type="tutorial">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Deploy Inicial<span class="type tutorial">tutorial</span></span>
-          <div class="note">público: adotante / gestor</div>
-          <a class="open" href="http://gov-hub.io/documentacao/adocao/deploy-inicial/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="cfg-3" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Requisitos<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/adocao/requisitos/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="cfg-4" data-type="guia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Conectar Fontes<span class="type guia">guia</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/adocao/conectar-fontes/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="cfg-5" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Gerenciamento de Secrets<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/infraestrutura/secrets/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="cfg-6" data-type="guia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Git Workflow<span class="type guia">guia</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/onboarding/git-workflow/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="cfg-7" data-type="guia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Troubleshooting<span class="type guia">guia</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/onboarding/troubleshooting/" target="_blank" title="Abrir">↗</a>
-        </div>
-      </div>
-    </section>
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-arch" data-parent="sec-config">
+      <span class="sec-title">Arquitetura</span><span class="sec-count" data-count="arch">0/5</span>
+      <div class="note">Como as peças se encaixam — contexto para quem vai além de rodar comandos e precisa entender o porquê.</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-item" id="arch-1" data-parent="sec-arch" data-type="explicacao" data-md="arch-01-visao-geral"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Visão Geral da Arquitetura</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="arch-2" data-parent="sec-arch" data-type="explicacao" data-md="arch-02-fluxo-de-dados"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fluxo de Dados</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="arch-3" data-parent="sec-arch" data-type="explicacao" data-md="arch-03-arquitetura-medallion"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Arquitetura Medallion</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="arch-4" data-parent="sec-arch" data-type="referencia" data-md="arch-04-componentes"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Componentes</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="arch-5" data-parent="sec-arch" data-type="referencia" data-md="arch-05-fontes-de-dados" data-tag="dup"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fontes de Dados</span><span class="type referencia">referência</span><span class="tag">dup</span></div>
+    </div>
+  </div>
+  <div class="rm-gap"></div>
 
-    <!-- SEÇÃO: ARQUITETURA -->
-    <section class="doc-section" data-section="arch">
-      <h2>Arquitetura</h2>
-      <p class="section-desc">Como as peças se encaixam — contexto para quem vai além de rodar comandos e precisa entender o porquê.</p>
-      <div class="cards">
-        <div class="node" id="arch-1" data-type="explicacao">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Visão Geral da Arquitetura<span class="type explicacao">explicação</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/arquitetura/visao-geral/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="arch-2" data-type="explicacao">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Fluxo de Dados<span class="type explicacao">explicação</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/arquitetura/fluxo-de-dados/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="arch-3" data-type="explicacao">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Arquitetura Medallion<span class="type explicacao">explicação</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/arquitetura/medallion/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="arch-4" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Componentes<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/arquitetura/componentes/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="arch-5" data-type="referencia" data-tag="dup">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Fontes de Dados<span class="type referencia">referência</span><span class="tag">dup</span></span>
-          <div class="note">mesmo conteúdo do Dicionário de Dados — fundir</div>
-          <a class="open" href="http://gov-hub.io/documentacao/arquitetura/fontes-de-dados/" target="_blank" title="Abrir">↗</a>
-        </div>
-      </div>
-    </section>
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-data" data-parent="sec-arch">
+      <span class="sec-title">Dados &amp; Pipeline</span><span class="sec-count" data-count="data">0/8</span>
+      <div class="note">O que os dados significam (dicionário) e como eles se movem até virar tabela confiável (Airflow + dbt).</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-item" id="data-1" data-parent="sec-data" data-type="referencia" data-md="data-01-dicionario-de-dados"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Dicionário de Dados</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="data-2" data-parent="sec-data" data-type="explicacao" data-md="data-02-dbt-visao-geral"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">dbt — Visão Geral</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="data-3" data-parent="sec-data" data-type="referencia" data-md="data-03-dbt-modelos-testes-macros" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">dbt — Modelos / Testes / Macros / Snapshots / Documentação</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
+      <div class="rm-item" id="data-4" data-parent="sec-data" data-type="referencia" data-md="data-04-ingestao-de-dados" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Ingestão de Dados</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
+      <div class="rm-item" id="data-5" data-parent="sec-data" data-type="referencia" data-md="data-05-qualidade-de-dados" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Qualidade de Dados</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
+      <div class="rm-item" id="data-6" data-parent="sec-data" data-type="referencia" data-md="data-06-observabilidade"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Observabilidade</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="data-7" data-parent="sec-data" data-type="referencia" data-md="data-07-padroes-de-engenharia"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Padrões de Engenharia</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="data-8" data-parent="sec-data" data-type="explicacao" data-md="data-08-apache-airflow" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Apache Airflow</span><span class="type explicacao">explicação</span><span class="tag">lacuna</span></div>
+    </div>
+  </div>
+  <div class="rm-gap"></div>
 
-    <!-- SEÇÃO: DADOS & PIPELINE -->
-    <section class="doc-section" data-section="data">
-      <h2>Dados &amp; Pipeline</h2>
-      <p class="section-desc">O que os dados significam (dicionário) e como eles se movem até virar tabela confiável (Airflow + dbt).</p>
-      <div class="cards">
-        <div class="node" id="data-1" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Dicionário de Dados<span class="type referencia">referência</span></span>
-          <div class="note">+ TransfereGov, Siape, Siafi, ComprasGov, Siorg</div>
-          <a class="open" href="http://gov-hub.io/documentacao/dados/dicionario/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="data-2" data-type="explicacao">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">dbt — Visão Geral<span class="type explicacao">explicação</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/pipeline/dbt/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="data-3" data-type="referencia" data-tag="lacuna">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">dbt — Modelos / Testes / Macros / Snapshots / Documentação<span class="type referencia">referência</span><span class="tag">lacuna</span></span>
-          <div class="note">path diz "tutoriais", nav diz "pipeline" — abrir p/ decidir o tipo real</div>
-          <a class="open" href="http://gov-hub.io/documentacao/tutoriais/dbt/modelos/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="data-4" data-type="referencia" data-tag="lacuna">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Ingestão de Dados<span class="type referencia">referência</span><span class="tag">lacuna</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/pipeline/ingestao/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="data-5" data-type="referencia" data-tag="lacuna">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Qualidade de Dados<span class="type referencia">referência</span><span class="tag">lacuna</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/pipeline/qualidade/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="data-6" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Observabilidade<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/pipeline/observabilidade/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="data-7" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Padrões de Engenharia<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/pipeline/padroes-engenharia/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="data-8" data-type="explicacao" data-tag="lacuna">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Apache Airflow<span class="type explicacao">explicação</span><span class="tag">lacuna</span></span>
-          <div class="note">provável mistura explicação + referência</div>
-          <a class="open" href="http://gov-hub.io/documentacao/pipeline/airflow/" target="_blank" title="Abrir">↗</a>
-        </div>
-      </div>
-    </section>
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-dash" data-parent="sec-data">
+      <span class="sec-title">Dashboards &amp; Relatórios</span><span class="sec-count" data-count="dash">0/10</span>
+      <div class="note">Trilha de treinamento pra quem cria e mantém dashboards no Superset e precisa gerar relatórios pros gestores.</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-item" id="dash-1" data-parent="sec-dash" data-type="explicacao" data-md="dash-01-superset-no-govhub" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">O que é o Superset no GovHub</span><span class="type explicacao">explicação</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-2" data-parent="sec-dash" data-type="tutorial" data-md="dash-02-primeiro-dashboard" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Criar seu primeiro dashboard do zero</span><span class="type tutorial">tutorial</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-3" data-parent="sec-dash" data-type="guia" data-md="dash-03-conectar-dataset" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Conectar um dashboard a um novo dataset</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-4" data-parent="sec-dash" data-type="guia" data-md="dash-04-filtros-drill-down" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Adicionar filtros e drill-down</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-5" data-parent="sec-dash" data-type="referencia" data-md="dash-05-tipos-de-grafico" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Tipos de gráfico e quando usar cada um</span><span class="type referencia">referência</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-6" data-parent="sec-dash" data-type="guia" data-md="dash-06-manter-dashboard" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Manter um dashboard existente</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-7" data-parent="sec-dash" data-type="guia" data-md="dash-07-relatorios" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Gerar e agendar relatórios</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-8" data-parent="sec-dash" data-type="referencia" data-md="dash-08-permissoes-papeis" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Permissões e papéis</span><span class="type referencia">referência</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-9" data-parent="sec-dash" data-type="explicacao" data-md="dash-09-dashboard-vs-relatorio" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Dashboard vivo vs. relatório estático</span><span class="type explicacao">explicação</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-10" data-parent="sec-dash" data-type="referencia" data-md="dash-10-jupyterhub" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">JupyterHub</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
+    </div>
+  </div>
+  <div class="rm-gap"></div>
 
-    <!-- SEÇÃO: DASHBOARDS & RELATÓRIOS (nova, rascunho) -->
-    <section class="doc-section" data-section="dash">
-      <h2>Dashboards &amp; Relatórios</h2>
-      <p class="section-desc">Trilha de treinamento pra quem cria e mantém dashboards no Superset e precisa gerar relatórios pros gestores.</p>
-      <div class="draft-banner">
-        <strong>Rascunho.</strong> Hoje o Superset é uma lacuna real no site (só existe a página "Visualização", sem conteúdo de treinamento). Os itens abaixo são uma proposta de primeira versão — precisam ser validados com quem já mantém dashboards no GovHub hoje, e o conteúdo de cada um ainda precisa ser escrito.
-      </div>
-      <div class="cards">
-        <div class="node" id="dash-1" data-type="explicacao" data-tag="rascunho">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">O que é o Superset no GovHub<span class="type explicacao">explicação</span><span class="tag">rascunho</span></span>
-          <div class="note">por que dashboards vivem lá, como se conecta com o Postgres/dbt</div>
-          <a class="open" href="http://gov-hub.io/documentacao/visualizacao/superset/" target="_blank" title="Abrir página existente (ainda sem conteúdo de treino)">↗</a>
-        </div>
-        <div class="node" id="dash-2" data-type="tutorial" data-tag="rascunho">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Criar seu primeiro dashboard do zero<span class="type tutorial">tutorial</span><span class="tag">rascunho</span></span>
-          <div class="note">passo a passo guiado: dataset → gráfico → dashboard, resultado garantido</div>
-        </div>
-        <div class="node" id="dash-3" data-type="guia" data-tag="rascunho">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Conectar um dashboard a um novo dataset<span class="type guia">guia</span><span class="tag">rascunho</span></span>
-        </div>
-        <div class="node" id="dash-4" data-type="guia" data-tag="rascunho">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Adicionar filtros e drill-down<span class="type guia">guia</span><span class="tag">rascunho</span></span>
-        </div>
-        <div class="node" id="dash-5" data-type="referencia" data-tag="rascunho">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Tipos de gráfico e quando usar cada um<span class="type referencia">referência</span><span class="tag">rascunho</span></span>
-        </div>
-        <div class="node" id="dash-6" data-type="guia" data-tag="rascunho">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Manter um dashboard existente<span class="type guia">guia</span><span class="tag">rascunho</span></span>
-          <div class="note">atualizar dataset quando o schema muda, corrigir gráfico quebrado, versionar mudanças</div>
-        </div>
-        <div class="node" id="dash-7" data-type="guia" data-tag="rascunho">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Gerar e agendar relatórios<span class="type guia">guia</span><span class="tag">rascunho</span></span>
-          <div class="note">export PDF/CSV, agendamento recorrente por e-mail</div>
-        </div>
-        <div class="node" id="dash-8" data-type="referencia" data-tag="rascunho">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Permissões e papéis<span class="type referencia">referência</span><span class="tag">rascunho</span></span>
-          <div class="note">quem pode editar vs. só visualizar, dono do dataset vs. dono do dashboard</div>
-        </div>
-        <div class="node" id="dash-9" data-type="explicacao" data-tag="rascunho">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Dashboard vivo vs. relatório estático<span class="type explicacao">explicação</span><span class="tag">rascunho</span></span>
-          <div class="note">quando cada formato faz sentido pro gestor público que vai consumir</div>
-        </div>
-        <div class="node" id="dash-10" data-type="referencia" data-tag="lacuna">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">JupyterHub<span class="type referencia">referência</span><span class="tag">lacuna</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/visualizacao/jupyterhub/" target="_blank" title="Abrir">↗</a>
-        </div>
-      </div>
-    </section>
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-infra" data-parent="sec-dash">
+      <span class="sec-title">Infraestrutura</span><span class="sec-count" data-count="infra">0/4</span>
+      <div class="note">Peças de baixo nível — normalmente consulta pontual, não leitura corrida.</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-item" id="infra-1" data-parent="sec-infra" data-type="referencia" data-md="infra-01-kubernetes"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Kubernetes</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="infra-2" data-parent="sec-infra" data-type="referencia" data-md="infra-02-argo-cd-gitops"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Argo CD (GitOps)</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="infra-3" data-parent="sec-infra" data-type="referencia" data-md="infra-03-minio"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">MinIO</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="infra-4" data-parent="sec-infra" data-type="referencia" data-md="infra-04-postgresql"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">PostgreSQL</span><span class="type referencia">referência</span></div>
+    </div>
+  </div>
+  <div class="rm-gap"></div>
 
-    <!-- SEÇÃO: INFRAESTRUTURA -->
-    <section class="doc-section" data-section="infra">
-      <h2>Infraestrutura</h2>
-      <p class="section-desc">Peças de baixo nível — normalmente consulta pontual, não leitura corrida.</p>
-      <div class="cards">
-        <div class="node" id="infra-1" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Kubernetes<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/infraestrutura/kubernetes/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="infra-2" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Argo CD (GitOps)<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/infraestrutura/argocd/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="infra-3" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">MinIO<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/infraestrutura/minio/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="infra-4" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">PostgreSQL<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/infraestrutura/postgres/" target="_blank" title="Abrir">↗</a>
-        </div>
-      </div>
-    </section>
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-gov" data-parent="sec-infra">
+      <span class="sec-title">Governança</span><span class="sec-count" data-count="gov">0/4</span>
+      <div class="note">Controle de acesso, segurança e catálogo de dados — parte já em produção, parte ainda roadmap.</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-item" id="gov-1" data-parent="sec-gov" data-type="explicacao" data-md="gov-01-openmetadata"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">OpenMetadata</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="gov-2" data-parent="sec-gov" data-type="explicacao" data-md="gov-02-trino-ranger"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Trino + Ranger</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="gov-3" data-parent="sec-gov" data-type="referencia" data-md="gov-03-controle-de-acesso"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Controle de Acesso</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="gov-4" data-parent="sec-gov" data-type="referencia" data-md="gov-04-seguranca"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Segurança</span><span class="type referencia">referência</span></div>
+    </div>
+  </div>
+  <div class="rm-gap"></div>
 
-    <!-- SEÇÃO: GOVERNANÇA -->
-    <section class="doc-section" data-section="gov">
-      <h2>Governança</h2>
-      <p class="section-desc">Controle de acesso, segurança e catálogo de dados — parte já em produção, parte ainda roadmap.</p>
-      <div class="cards">
-        <div class="node" id="gov-1" data-type="explicacao">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">OpenMetadata<span class="type explicacao">explicação</span></span>
-          <div class="note">confirmar se está em produção</div>
-          <a class="open" href="http://gov-hub.io/documentacao/governanca/openmetadata/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="gov-2" data-type="explicacao">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Trino + Ranger<span class="type explicacao">explicação</span></span>
-          <div class="note">memória indica: só roadmap/workshop, não produção — marcar isso na página</div>
-          <a class="open" href="http://gov-hub.io/documentacao/governanca/trino-ranger/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="gov-3" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Controle de Acesso<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/governanca/acesso/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="gov-4" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Segurança<span class="type referencia">referência</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/governanca/seguranca/" target="_blank" title="Abrir">↗</a>
-        </div>
-      </div>
-    </section>
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-community" data-parent="sec-gov">
+      <span class="sec-title">Comunidade &amp; Contribuição</span><span class="sec-count" data-count="community">0/9</span>
+      <div class="note">Como entrar, contribuir e sair de novo sem quebrar nada — hoje concentrado (demais) num único CONTRIBUTING.md.</div>
+    </div>
+    <div class="rm-row">
+      <div class="rm-item" id="com-1" data-parent="sec-community" data-type="guia" data-md="com-01-como-contribuir"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Como Contribuir (fork → branch → PR)</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="com-2" data-parent="sec-community" data-type="referencia" data-md="com-02-padroes-commit-pr"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Padrões de commit / branch / PR / testes</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="com-3" data-parent="sec-community" data-type="guia" data-md="com-03-revisao-de-prs"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Revisão de PRs</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="com-4" data-parent="sec-community" data-type="guia" data-md="com-04-criar-fork-tematico"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Criar Fork Temático</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="com-5" data-parent="sec-community" data-type="explicacao" data-md="com-05-fork-cidades"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fork Cidades</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="com-6" data-parent="sec-community" data-type="explicacao" data-md="com-06-fork-minc"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fork MinC</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="com-7" data-parent="sec-community" data-type="explicacao" data-md="com-07-pesquisa"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Pesquisa</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="com-8" data-parent="sec-community" data-type="explicacao" data-md="com-08-roteiro-contribuidor" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Roteiro do Contribuidor</span><span class="type explicacao">explicação</span><span class="tag">lacuna</span></div>
+      <div class="rm-item" id="com-9" data-parent="sec-community" data-type="tutorial" data-md="com-09-primeiro-pr" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Primeiro PR, passo a passo</span><span class="type tutorial">tutorial</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap"></div>
 
-    <!-- SEÇÃO: COMUNIDADE & CONTRIBUIÇÃO -->
-    <section class="doc-section" data-section="community">
-      <h2>Comunidade &amp; Contribuição</h2>
-      <p class="section-desc">Como entrar, contribuir e sair de novo sem quebrar nada — hoje concentrado (demais) num único CONTRIBUTING.md.</p>
-      <div class="cards">
-        <div class="node" id="com-1" data-type="guia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Como Contribuir (fork → branch → PR)<span class="type guia">guia</span></span>
-          <div class="note">extraído do CONTRIBUTING.md atual</div>
-          <a class="open" href="http://gov-hub.io/documentacao/CONTRIBUTING/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="com-2" data-type="referencia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Padrões de commit / branch / PR / testes<span class="type referencia">referência</span></span>
-          <div class="note">extraído do CONTRIBUTING.md atual</div>
-        </div>
-        <div class="node" id="com-3" data-type="guia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Revisão de PRs<span class="type guia">guia</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/pipeline/protocolo-mr/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="com-4" data-type="guia">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Criar Fork Temático<span class="type guia">guia</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/forks/guia-criar-fork/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="com-5" data-type="explicacao">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Fork Cidades<span class="type explicacao">explicação</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/forks/cidades/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="com-6" data-type="explicacao">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Fork MinC<span class="type explicacao">explicação</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/forks/minc/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="com-7" data-type="explicacao">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Pesquisa<span class="type explicacao">explicação</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/comunidade/pesquisa/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="com-8" data-type="explicacao" data-tag="lacuna">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Roteiro do Contribuidor<span class="type explicacao">explicação</span><span class="tag">lacuna</span></span>
-          <a class="open" href="http://gov-hub.io/documentacao/onboarding/roteiro/" target="_blank" title="Abrir">↗</a>
-        </div>
-        <div class="node" id="com-9" data-type="tutorial" data-tag="gap">
-          <button class="check" aria-label="marcar concluído"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
-          <span class="title">Primeiro PR, passo a passo<span class="type tutorial">tutorial</span><span class="tag">gap</span></span>
-          <div class="note">não existe — maior lacuna do site inteiro</div>
-        </div>
-      </div>
-    </section>
-
-  </main>
 </div>
 
 <footer>
   <h2>Como usar</h2>
   <ul>
-    <li>Sidebar à esquerda troca de seção — cada seção mistura tutorial, guia, referência e explicação, como uma página de suporte da Apple: organizado por assunto, não por tipo de conteúdo.</li>
-    <li>O selo colorido no título indica o tipo (verde=tutorial, azul=guia, roxo=referência, marrom=explicação). Clique num selo da barra de tipos no topo pra filtrar só aquele tipo dentro da seção atual.</li>
-    <li>Selos tracejados (lacuna / gap / dup / rascunho) indicam o que falta revisar, criar ou fundir.</li>
-    <li>"Dashboards & Relatórios" é conteúdo novo, ainda não existe no site — é a primeira versão da trilha de treinamento pra criar, manter dashboards e gerar relatórios no Superset. Precisa validação de quem já mantém isso hoje.</li>
-    <li>Clique no quadrado à esquerda de cada item pra marcar como concluído — salvo no navegador.</li>
+    <li>A espinha central percorre as 7 se&ccedil;&otilde;es na ordem em que fazem sentido para quem chega: instalar, entender, operar, visualizar, sustentar, governar, contribuir.</li>
+    <li>Cada box pendurado numa se&ccedil;&atilde;o &eacute; um documento em <code>docs/</code>. Clique para abrir.</li>
+    <li>O selo colorido indica o tipo pelo framework Di&aacute;taxis &mdash; verde&nbsp;=&nbsp;tutorial (aprender fazendo), azul&nbsp;=&nbsp;guia (resolver um problema), roxo&nbsp;=&nbsp;refer&ecirc;ncia (consultar), marrom&nbsp;=&nbsp;explica&ccedil;&atilde;o (entender o porqu&ecirc;). Clique num selo do topo para destacar s&oacute; aquele tipo.</li>
+    <li>Selos tracejados marcam o que ainda precisa de decis&atilde;o: <strong>lacuna</strong> (tipo a confirmar), <strong>gap</strong> (n&atilde;o existe em lugar nenhum), <strong>dup</strong> (a fundir), <strong>rascunho</strong> (proposta a validar).</li>
+    <li>O quadrado &agrave; esquerda de cada box marca como lido &mdash; fica salvo no navegador.</li>
+    <li>O box <strong>Instala&ccedil;&atilde;o</strong> tem tamb&eacute;m um roadmap pr&oacute;prio, detalhando a p&aacute;gina passo a passo: <a href="#instalacao">ver</a>.</li>
   </ul>
 </footer>
 
@@ -893,52 +848,71 @@
 
 </div>
 
+<!-- ============================================================ -->
+<!-- VIEW: DOC (.md deste repositório)                              -->
+<!-- ============================================================ -->
+<div id="view-doc" hidden>
+
+<header>
+  <div class="doc-head-inner">
+    <button class="back" type="button" onclick="showBoard()">← voltar à documentação</button>
+    <div id="docCrumb"></div>
+    <h1 id="docTitle">…</h1>
+  </div>
+</header>
+
+<article class="doc-body" id="docBody"></article>
+
+</div>
+
 <script>
-// ===================== BOARD LOGIC =====================
+// ===================== ROADMAP LOGIC =====================
 (function(){
-  var STORAGE_KEY = "govhub_docs_progress_v2";
-  var nodes = Array.prototype.slice.call(document.querySelectorAll("#view-board .node"));
-  var sections = Array.prototype.slice.call(document.querySelectorAll("#view-board .doc-section"));
-  var sideItems = Array.prototype.slice.call(document.querySelectorAll(".side-item"));
+  var STORAGE_KEY = "govhub_roadmap_progress_v3";
+  var canvas   = document.getElementById("rmCanvas");
+  var svg      = document.getElementById("rmEdges");
+  var items    = Array.prototype.slice.call(document.querySelectorAll(".rm-item"));
+  var linked   = Array.prototype.slice.call(document.querySelectorAll("#rmCanvas [data-parent]"));
+  var stages   = Array.prototype.slice.call(document.querySelectorAll("#rmCanvas .rm-stage"));
 
   function loadState(){
     try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
     catch(e){ return {}; }
   }
-  function saveState(state){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  function saveState(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
   var state = loadState();
 
   function applyState(){
-    nodes.forEach(function(n){
-      if(state[n.id]){ n.classList.add("done"); }
-      else { n.classList.remove("done"); }
-    });
+    items.forEach(function(n){ n.classList.toggle("done", !!state[n.id]); });
     updateProgress();
   }
 
   function updateProgress(){
     var totalAll = 0, doneAll = 0;
-    sections.forEach(function(sec){
-      var key = sec.getAttribute("data-section");
-      var secNodes = Array.prototype.slice.call(sec.querySelectorAll(".node"));
-      var total = secNodes.length;
-      var done = secNodes.filter(function(n){ return n.classList.contains("done"); }).length;
-      totalAll += total; doneAll += done;
-      var countEl = document.querySelector('.side-count[data-count="' + key + '"]');
-      if(countEl) countEl.textContent = done + "/" + total;
+    stages.forEach(function(stage){
+      var countEl = stage.querySelector(".sec-count");
+      if(!countEl) return;
+      var secItems = Array.prototype.slice.call(stage.querySelectorAll(".rm-item"));
+      var done = secItems.filter(function(n){ return n.classList.contains("done"); }).length;
+      totalAll += secItems.length;
+      doneAll  += done;
+      countEl.textContent = done + "/" + secItems.length;
     });
-    var overallPct = totalAll ? Math.round(doneAll/totalAll*100) : 0;
-    document.getElementById("overallBar").style.width = overallPct + "%";
+    var pct = totalAll ? Math.round(doneAll / totalAll * 100) : 0;
+    document.getElementById("overallBar").style.width = pct + "%";
     document.getElementById("overallLabel").textContent = doneAll + "/" + totalAll;
   }
 
-  nodes.forEach(function(n){
-    var btn = n.querySelector(".check");
-    btn.addEventListener("click", function(){
-      var isDone = n.classList.toggle("done");
-      state[n.id] = isDone;
+  items.forEach(function(n){
+    n.querySelector(".rm-check").addEventListener("click", function(e){
+      e.stopPropagation();
+      state[n.id] = n.classList.toggle("done");
       saveState(state);
       updateProgress();
+    });
+    n.addEventListener("click", function(){
+      var slug = n.getAttribute("data-md");
+      if(slug) showDoc(slug);
     });
   });
 
@@ -948,49 +922,77 @@
     applyState();
   });
 
-  sideItems.forEach(function(btn){
-    btn.addEventListener("click", function(){
-      var key = btn.getAttribute("data-section");
-      sideItems.forEach(function(b){ b.classList.remove("active"); });
-      btn.classList.add("active");
-      sections.forEach(function(sec){
-        sec.classList.toggle("active", sec.getAttribute("data-section") === key);
-      });
-      document.getElementById("search").value = "";
-      applyFilters();
-    });
-  });
-
+  // ---- filtros: escurecem em vez de esconder, para não mexer no traçado das arestas
   var activeType = "";
+  var searchInput = document.getElementById("search");
   var typeBtns = Array.prototype.slice.call(document.querySelectorAll("#typeLegend .type"));
+
+  function applyFilters(){
+    var q = searchInput.value.trim().toLowerCase();
+    items.forEach(function(n){
+      var matchesType = !activeType || n.getAttribute("data-type") === activeType;
+      var text = n.querySelector(".rm-title").textContent.toLowerCase();
+      var matchesSearch = !q || text.indexOf(q) !== -1;
+      n.classList.toggle("dim", !(matchesType && matchesSearch));
+      n.classList.toggle("hit", !!q && matchesSearch && matchesType);
+    });
+  }
+
   typeBtns.forEach(function(btn){
     btn.addEventListener("click", function(){
       var t = btn.getAttribute("data-type");
       activeType = (activeType === t) ? "" : t;
       typeBtns.forEach(function(b){ b.classList.remove("active"); });
-      (document.querySelector('#typeLegend .type[data-type="' + activeType + '"]')).classList.add("active");
+      document.querySelector('#typeLegend .type[data-type="' + activeType + '"]').classList.add("active");
       applyFilters();
     });
   });
-
-  var searchInput = document.getElementById("search");
   searchInput.addEventListener("input", applyFilters);
 
-  function applyFilters(){
-    var q = searchInput.value.trim().toLowerCase();
-    var activeSection = document.querySelector(".doc-section.active");
-    nodes.forEach(function(n){
-      var inActiveSection = activeSection && activeSection.contains(n);
-      if(!inActiveSection){ return; }
-      var type = n.getAttribute("data-type") || "";
-      var matchesType = !activeType || type === activeType;
-      var text = n.querySelector(".title").textContent.toLowerCase();
-      var matchesSearch = !q || text.indexOf(q) !== -1;
-      n.classList.toggle("hidden", !(matchesType && matchesSearch));
+  // ---- arestas
+  function drawEdges(){
+    if(document.getElementById("view-roadmap").hidden) return;
+    var box = canvas.getBoundingClientRect();
+    svg.setAttribute("width", canvas.scrollWidth);
+    svg.setAttribute("height", canvas.scrollHeight);
+    svg.innerHTML = "";
+
+    linked.forEach(function(n){
+      var parent = document.getElementById(n.getAttribute("data-parent"));
+      if(!parent) return;
+      var pr = parent.getBoundingClientRect();
+      var cr = n.getBoundingClientRect();
+
+      var x1 = pr.left + pr.width / 2 - box.left;
+      var y1 = pr.bottom - box.top;
+      var x2 = cr.left + cr.width / 2 - box.left;
+      var y2 = cr.top - box.top;
+      var ymid = y1 + (y2 - y1) * 0.55;
+
+      var d = (Math.abs(x1 - x2) < 2)
+        ? "M " + x1 + " " + y1 + " L " + x2 + " " + y2
+        : "M " + x1 + " " + y1 + " L " + x1 + " " + ymid +
+          " L " + x2 + " " + ymid + " L " + x2 + " " + y2;
+
+      var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", d);
+      if(n.classList.contains("rm-node")) path.setAttribute("class", "spine");
+      svg.appendChild(path);
     });
   }
 
+  var pending;
+  window.addEventListener("resize", function(){
+    clearTimeout(pending);
+    pending = setTimeout(drawEdges, 80);
+  });
+  // A fonte Inter carrega de forma assíncrona e desloca o layout: redesenhar depois.
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(drawEdges);
+
   applyState();
+  applyFilters();
+  drawEdges();
+  window.__rmDraw = drawEdges;
 })();
 
 // ===================== INSTALAÇÃO LOGIC =====================
@@ -1073,27 +1075,254 @@
   window.__imInit = function(){ drawEdges(); };
 })();
 
+// ===================== MARKDOWN =====================
+// Renderizador do subconjunto de Markdown usado nos arquivos de docs/:
+// títulos, listas, tabelas, código, blockquote, links, ênfase e alertas [!TODO].
+var mdToHtml = (function(){
+
+  function escapeHtml(s){
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  function inline(s){
+    s = escapeHtml(s);
+    var spans = [];
+    s = s.replace(/`([^`]+)`/g, function(_, c){
+      spans.push(c);
+      return "\u0001" + (spans.length - 1) + "\u0001";
+    });
+    s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, '<img src="$2" alt="$1">');
+    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function(_, txt, href){
+      var external = /^https?:/i.test(href);
+      return '<a href="' + href + '"' + (external ? ' target="_blank" rel="noopener"' : '') + '>' + txt + '</a>';
+    });
+    s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    s = s.replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+    s = s.replace(/\u0001(\d+)\u0001/g, function(_, n){ return "<code>" + spans[+n] + "</code>"; });
+    return s;
+  }
+
+  function splitRow(row){
+    return row.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(function(c){ return c.trim(); });
+  }
+
+  var RE_HEADING   = /^(#{1,4})\s+(.*)$/;
+  var RE_HR        = /^(-{3,}|\*{3,})\s*$/;
+  var RE_LIST      = /^\s*([-*+]|\d+\.)\s+/;
+  var RE_QUOTE     = /^>\s?/;
+  var RE_SEPARATOR = /^\s*\|?[\s:|-]+\|[\s:|-]*$/;
+  var RE_CODE_PH   = /^\u0000CODE(\d+)\u0000$/;
+
+  return function mdToHtml(src){
+    var codeBlocks = [];
+    var text = String(src).replace(/\r\n?/g, "\n");
+
+    text = text.replace(/```([a-zA-Z0-9+#_-]*)\n([\s\S]*?)```/g, function(_, lang, body){
+      codeBlocks.push("<pre><code>" + escapeHtml(body.replace(/\n$/, "")) + "</code></pre>");
+      return "\n\u0000CODE" + (codeBlocks.length - 1) + "\u0000\n";
+    });
+
+    var lines = text.split("\n");
+    var out = [];
+    var i = 0;
+
+    function isTableStart(idx){
+      return lines[idx].indexOf("|") !== -1
+          && idx + 1 < lines.length
+          && lines[idx + 1].indexOf("-") !== -1
+          && RE_SEPARATOR.test(lines[idx + 1]);
+    }
+
+    while(i < lines.length){
+      var line = lines[i];
+
+      var ph = line.match(RE_CODE_PH);
+      if(ph){ out.push(codeBlocks[+ph[1]]); i++; continue; }
+
+      if(!line.trim()){ i++; continue; }
+
+      if(RE_HR.test(line)){ out.push("<hr>"); i++; continue; }
+
+      var h = line.match(RE_HEADING);
+      if(h){
+        var lv = h[1].length;
+        out.push("<h" + lv + ">" + inline(h[2].trim()) + "</h" + lv + ">");
+        i++;
+        continue;
+      }
+
+      if(isTableStart(i)){
+        var head = splitRow(lines[i]);
+        i += 2;
+        var body = [];
+        while(i < lines.length && lines[i].indexOf("|") !== -1 && lines[i].trim()){
+          body.push(splitRow(lines[i]));
+          i++;
+        }
+        var html = '<div class="table-wrap"><table><thead><tr>';
+        head.forEach(function(c){ html += "<th>" + inline(c) + "</th>"; });
+        html += "</tr></thead><tbody>";
+        body.forEach(function(row){
+          html += "<tr>";
+          row.forEach(function(c){ html += "<td>" + inline(c) + "</td>"; });
+          html += "</tr>";
+        });
+        out.push(html + "</tbody></table></div>");
+        continue;
+      }
+
+      if(RE_QUOTE.test(line)){
+        var quoted = [];
+        while(i < lines.length && RE_QUOTE.test(lines[i])){
+          quoted.push(lines[i].replace(RE_QUOTE, ""));
+          i++;
+        }
+        // Alerta no estilo GitHub: > [!TODO] vira o callout laranja.
+        var alert = quoted[0] && quoted[0].match(/^\[!([A-Z]+)\]\s*(.*)$/);
+        if(alert && alert[1] === "TODO"){
+          quoted[0] = alert[2];
+          var inner = quoted.filter(function(l){ return l.trim(); }).map(inline).join("<br>");
+          out.push('<div class="todo-callout"><strong>A escrever.</strong> ' + inner + "</div>");
+        } else {
+          out.push("<blockquote><p>" + quoted.filter(function(l){ return l.trim(); }).map(inline).join("<br>") + "</p></blockquote>");
+        }
+        continue;
+      }
+
+      if(RE_LIST.test(line)){
+        var tag = /^\s*\d+\./.test(line) ? "ol" : "ul";
+        var items = [];
+        while(i < lines.length && RE_LIST.test(lines[i])){
+          var content = lines[i].replace(RE_LIST, "");
+          i++;
+          while(i < lines.length && lines[i].trim() && /^\s{2,}\S/.test(lines[i]) && !RE_LIST.test(lines[i])){
+            content += " " + lines[i].trim();
+            i++;
+          }
+          items.push("<li>" + inline(content) + "</li>");
+        }
+        out.push("<" + tag + ">" + items.join("") + "</" + tag + ">");
+        continue;
+      }
+
+      var para = [];
+      while(i < lines.length && lines[i].trim()
+            && !RE_HEADING.test(lines[i]) && !RE_HR.test(lines[i])
+            && !RE_QUOTE.test(lines[i]) && !RE_LIST.test(lines[i])
+            && !RE_CODE_PH.test(lines[i]) && !isTableStart(i)){
+        para.push(lines[i]);
+        i++;
+      }
+      if(para.length) out.push("<p>" + inline(para.join(" ")) + "</p>");
+      else i++;
+    }
+
+    return out.join("\n");
+  };
+})();
+
+// ===================== DOC LOGIC =====================
+var TYPE_LABEL = { tutorial:"tutorial", guia:"guia", referencia:"referência", explicacao:"explicação" };
+var docCache = {};
+
+function docMetaFor(slug){
+  var item = document.querySelector('.rm-item[data-md="' + slug + '"]');
+  if(!item) return null;
+  var stage = item.closest(".rm-stage");
+  return {
+    title: item.querySelector(".rm-title").textContent.trim(),
+    type: item.getAttribute("data-type") || "",
+    tag: item.getAttribute("data-tag") || "",
+    section: stage ? stage.querySelector(".sec-title").textContent.trim() : ""
+  };
+}
+
+function renderDoc(slug, markdown){
+  var meta = docMetaFor(slug) || { title: slug, type: "", tag: "", section: "" };
+  document.getElementById("docTitle").textContent = meta.title;
+  document.getElementById("docCrumb").textContent = meta.section;
+
+  var header = "";
+  if(meta.type){
+    header = '<div class="doc-meta"><span class="type ' + meta.type + '">' +
+             (TYPE_LABEL[meta.type] || meta.type) + "</span>" +
+             (meta.tag ? "<span>· " + meta.tag + "</span>" : "") +
+             '<span>· docs/' + slug + ".md</span></div>";
+  }
+  document.getElementById("docBody").innerHTML = header + mdToHtml(markdown);
+}
+
+function renderDocError(slug, err){
+  document.getElementById("docTitle").textContent = "Não deu pra carregar";
+  document.getElementById("docCrumb").textContent = "";
+  var local = location.protocol === "file:";
+  document.getElementById("docBody").innerHTML =
+    '<div class="doc-error"><p><strong>docs/' + slug + ".md</strong> não pôde ser lido.</p>" +
+    (local
+      ? "<p>Você abriu este arquivo direto do disco (<code>file://</code>), e o navegador bloqueia a leitura de arquivos locais. Sirva a pasta por HTTP:</p>" +
+        "<pre><code>python3 -m http.server 8000</code></pre>" +
+        "<p>e acesse <code>http://localhost:8000</code>. No GitHub Pages funciona sem isso.</p>"
+      : "<p>Verifique se o arquivo existe no repositório. Detalhe: <code>" + String(err) + "</code></p>") +
+    "</div>";
+}
+
+function showDoc(slug, e){
+  if(e) e.preventDefault();
+  setView("view-doc");
+  if(location.hash !== "#doc/" + slug) location.hash = "doc/" + slug;
+  window.scrollTo(0,0);
+
+  if(docCache[slug]){ renderDoc(slug, docCache[slug]); return; }
+
+  document.getElementById("docTitle").textContent = "Carregando…";
+  document.getElementById("docCrumb").textContent = "";
+  document.getElementById("docBody").innerHTML = "";
+
+  fetch("docs/" + slug + ".md", { cache: "no-cache" })
+    .then(function(r){
+      if(!r.ok) throw new Error("HTTP " + r.status);
+      return r.text();
+    })
+    .then(function(text){
+      docCache[slug] = text;
+      renderDoc(slug, text);
+    })
+    .catch(function(err){ renderDocError(slug, err); });
+}
+
 // ===================== VIEW SWITCHER =====================
+var VIEWS = ["view-roadmap", "view-instalacao", "view-doc"];
+function setView(id){
+  VIEWS.forEach(function(v){ document.getElementById(v).hidden = (v !== id); });
+}
+
 function showInstalacao(e){
   if(e) e.preventDefault();
-  document.getElementById("view-board").hidden = true;
-  document.getElementById("view-instalacao").hidden = false;
+  setView("view-instalacao");
   if(location.hash !== "#instalacao") location.hash = "instalacao";
   window.scrollTo(0,0);
   if(window.__imInit) window.__imInit();
 }
-function showBoard(e){
+function showRoadmap(e){
   if(e) e.preventDefault();
-  document.getElementById("view-instalacao").hidden = true;
-  document.getElementById("view-board").hidden = false;
-  if(location.hash === "#instalacao") history.replaceState(null, "", location.pathname + location.search);
+  setView("view-roadmap");
+  if(location.hash) history.replaceState(null, "", location.pathname + location.search);
   window.scrollTo(0,0);
+  if(window.__rmDraw) window.__rmDraw();
 }
-window.addEventListener("hashchange", function(){
-  if(location.hash === "#instalacao") showInstalacao();
-  else showBoard();
-});
-if(location.hash === "#instalacao") showInstalacao();
+// A view de Instalação e a de doc voltam para cá.
+var showBoard = showRoadmap;
+
+function routeFromHash(){
+  var hash = location.hash.replace(/^#/, "");
+  if(hash === "instalacao"){ showInstalacao(); return; }
+  var doc = hash.match(/^doc\/(.+)$/);
+  if(doc){ showDoc(decodeURIComponent(doc[1])); return; }
+  showRoadmap();
+}
+
+window.addEventListener("hashchange", routeFromHash);
+routeFromHash();
 </script>
 
 </body>
