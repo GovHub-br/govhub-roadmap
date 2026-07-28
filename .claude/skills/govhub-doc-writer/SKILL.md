@@ -119,39 +119,36 @@ pasta da skill.
 ## Escolher o tipo Diátaxis
 
 O erro mais comum da documentação técnica é misturar os quatro tipos numa página.
-Decida antes de escrever a primeira linha:
+Decida **antes** de escrever a primeira linha:
 
-```dot
-digraph tipo {
-    "O leitor já sabe o que quer fazer?" [shape=diamond];
-    "Ele está estudando ou executando?" [shape=diamond];
-    "Precisa do resultado ou do porquê?" [shape=diamond];
-    "tutorial" [shape=box];
-    "guia" [shape=box];
-    "referência" [shape=box];
-    "explicação" [shape=box];
-
-    "O leitor já sabe o que quer fazer?" -> "Ele está estudando ou executando?" [label="não"];
-    "O leitor já sabe o que quer fazer?" -> "Precisa do resultado ou do porquê?" [label="sim"];
-    "Ele está estudando ou executando?" -> "tutorial" [label="estudando"];
-    "Ele está estudando ou executando?" -> "explicação" [label="quer entender"];
-    "Precisa do resultado ou do porquê?" -> "guia" [label="resultado"];
-    "Precisa do resultado ou do porquê?" -> "referência" [label="consulta um dado"];
-}
+```
+É sobre FAZER alguma coisa?
+├── SIM: o leitor está APRENDENDO ou EXECUTANDO?
+│   ├── aprendendo   → tutorial
+│   └── executando   → guia
+└── NÃO: ele quer FATOS ou ENTENDIMENTO?
+    ├── fatos        → referência
+    └── entendimento → explicação
 ```
 
 Teste rápido: se a página tem passo a passo **e** tabela de parâmetros, são dois
-documentos. Se tem passo a passo **e** justificativa de arquitetura, são dois.
+documentos. Passo a passo **e** justificativa de arquitetura, idem.
 
-## Erros comuns
+**Leia `references/modelos-diataxis.md` antes de escrever.** Ele traz o que cada
+tipo exige de forma e de tom, o modelo pronto de cada um, e as tabelas para
+diagnosticar quando o tipo está errado.
+
+## Erros comuns do processo
+
+Os erros de *escrita* estão em `references/modelos-diataxis.md`. Os do
+*processo* são estes:
 
 | Erro | Consequência | Correção |
 |---|---|---|
-| Tutorial que explica alternativas | O leitor trava escolhendo | Tutorial tem caminho único; alternativas vão pra guia ou referência |
-| Guia que ensina do zero | Repete o tutorial e envelhece em dobro | Guia pressupõe o básico e linka o tutorial |
-| Referência com narrativa | Ninguém acha o dado | Tabela primeiro, prosa só nas notas |
-| Explicação com comandos | Vira tutorial ruim | Explicação não tem passo a passo |
+| Escrever sem ler o `.md` atual | Reescreve o que já estava certo e perde a anotação do `[!TODO]` | Passo 3 vem antes do 5 |
+| Preencher sem fonte | Documentação plausível e falsa | Sem fonte, fica `*a escrever*` |
 | Remover o `[!TODO]` com seções ainda `*a escrever*` | Documento parece pronto e não está | Só remova quando não restar nenhum marcador |
+| Criar documento sem criar o box | Fica invisível no roadmap | Passo 6 |
 | Editar `docs/` sem rodar `verificar.py` | Link quebrado passa despercebido | Passo 7 não é opcional |
 
 ## Referências
@@ -159,8 +156,9 @@ documentos. Se tem passo a passo **e** justificativa de arquitetura, são dois.
 Esta skill vive em `.claude/skills/govhub-doc-writer/` dentro do próprio
 repositório, versionada junto com a documentação que ela ajuda a escrever.
 
+- `references/modelos-diataxis.md` — teoria dos quatro tipos, modelos prontos e
+  diagnóstico. **Leitura obrigatória antes de escrever.**
 - `references/estrutura-do-repo.md` — layout, slugs, markup do box, seções
-- `references/modelos-diataxis.md` — os quatro modelos prontos e como escolher
 - `scripts/listar.py` — estado dos documentos por seção
 - `scripts/verificar.py` — validação completa antes de fechar
 
