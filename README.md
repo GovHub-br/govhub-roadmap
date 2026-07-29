@@ -9,32 +9,42 @@ tipado pelo framework [Diátaxis](https://diataxis.fr).
 Serve a duas coisas ao mesmo tempo: mostrar **onde a documentação está furada** e
 hospedar o texto que preenche esses furos.
 
+Dentro de cada seção a ordem é sempre a mesma — uma **introdução**, e depois as
+faixas **entender → praticar → resolver → consultar → recomendações**. A faixa
+diz o papel do documento no percurso; o selo colorido diz o tipo Diátaxis. São
+eixos independentes.
+
 Sem build e sem dependências de pacote — `index.html` mais arquivos `.md`,
 servidos como estão pelo GitHub Pages.
 
 ## Estado atual
 
-47 documentos mapeados. **Nenhum está pronto.** É esse o trabalho.
+83 documentos mapeados. **Nenhum está pronto.** É esse o trabalho.
 
 | | |
 |---|---|
-| Esqueleto (mais de 6 pendências) | 16 |
-| Parcial | 31 |
-| Escrito | 0 |
-| Marcadores `*a escrever*` no total | 328 |
+| Existem no site ou como rascunho | 46 |
+| Não existem em lugar nenhum (`gap`) | 37 |
+| Escritos | 0 |
+| Marcadores `*a escrever*` no total | 417 |
 
-Por tipo: 20 referências, 13 explicações, 10 guias e **4 tutoriais**. O
+Por tipo: 26 explicações, 26 guias, 23 referências e **8 tutoriais**. O
 desequilíbrio é o achado mais útil do mapa — a documentação é forte em consultar
 e entender, e fraca em **aprender fazendo**.
 
-Tags de decisão pendente, em 17 dos 47 boxes:
+Tags de decisão pendente, em 53 dos 83 boxes:
 
 | Tag | Quantos | Significa |
 |---|---|---|
+| `gap` | 37 | não existe em lugar nenhum |
 | `rascunho` | 9 | proposta a validar com quem opera |
 | `lacuna` | 6 | existe, mas o tipo Diátaxis está em dúvida |
-| `gap` | 1 | não existe em lugar nenhum — "Primeiro PR, passo a passo" |
 | `dup` | 1 | duplica outro documento, a fundir |
+
+Os 37 `gap` não são fracasso do projeto: são o que o mapa passou a enxergar
+quando cada seção ganhou a mesma estrutura interna. Cinco seções não tinham
+**nenhum guia**, quatro não tinham **nenhum tutorial**, e nenhuma tinha
+introdução.
 
 ## Como funciona
 
@@ -42,13 +52,16 @@ Três views, roteadas pelo hash da URL:
 
 | View | Hash | O que é |
 |---|---|---|
-| Roadmap | *(nenhum)* | A espinha: 7 seções, 47 boxes, progresso salvo no navegador |
+| Roadmap | *(nenhum)* | A espinha: 7 seções, 83 boxes em faixas, progresso salvo no navegador |
 | Instalação | `#instalacao` | Roadmap detalhado de uma página só, etapa por etapa |
 | Doc | `#doc/<slug>` | Renderiza um `.md` de `docs/` com a identidade visual do GovHub |
 
 Clicar num box abre o documento. Clicar no quadradinho à esquerda marca como
 lido. O selo colorido indica o tipo; clicar num selo da barra do topo destaca só
 aquele tipo.
+
+Faixa marcada como vazia é lacuna real — aquela seção ainda não tem nenhum
+documento daquele papel.
 
 ## Os quatro tipos
 
@@ -67,9 +80,10 @@ Teoria completa, com o modelo de cada tipo, em
 
 ## Escrever um documento
 
-Os 47 arquivos já existem em `docs/`, cada um com o esqueleto do seu tipo e um
+Os 83 arquivos já existem em `docs/`, cada um com o esqueleto do seu tipo e um
 bloco `> [!TODO]` no topo dizendo o que falta. Nos 37 que vieram do site, esse
-bloco linka a página do `gov-hub.io` a migrar.
+bloco linka a página do `gov-hub.io` a migrar; nos 37 marcados `gap`, ele diz
+que o documento não existe e o que deveria cobrir.
 
 Veja o que está pendente numa seção:
 
@@ -188,7 +202,7 @@ usa texto branco em 9px, e o tom oficial reprovaria em contraste AA.
 
 ```
 index.html                as três views, o desenho das arestas e o renderizador
-docs/*.md                 os 47 documentos
+docs/*.md                 os 83 documentos
 .claude/skills/           as três skills e seus scripts
 .nojekyll                 impede o GitHub de processar o repositório com Jekyll
 ```

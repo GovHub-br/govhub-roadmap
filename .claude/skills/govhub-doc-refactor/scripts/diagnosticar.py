@@ -6,7 +6,7 @@ ou diverge do que o box declara no roadmap.
 
 Uso:
     python3 scripts/diagnosticar.py <slug|caminho|id-do-box>
-    python3 scripts/diagnosticar.py --todos      # varre os 47
+    python3 scripts/diagnosticar.py --todos      # varre todos
 
 Rode a partir da raiz do repositório govhub-roadmap.
 """
@@ -86,10 +86,7 @@ def detectar_tabela_parametros(texto):
 def carregar_boxes():
     html = open("index.html", encoding="utf-8").read()
     boxes = {}
-    for m in re.finditer(
-            r'<div class="rm-item" id="(?P<id>[^"]+)" data-parent="sec-(?P<sec>[^"]+)"'
-            r' data-type="(?P<tipo>[^"]+)" data-md="(?P<slug>[^"]+)"(?P<resto>[^>]*)>'
-            r'.*?<span class="rm-title">(?P<titulo>[^<]+)</span>', html):
+    for m in re.finditer('<div class="rm-item(?P<classes>[^"]*)" id="(?P<id>[^"]+)" data-sec="(?P<sec>[^"]+)" data-parent="(?P<parent>[^"]+)" data-type="(?P<tipo>[^"]+)" data-md="(?P<slug>[^"]+)"(?P<resto>[^>]*)>.*?<span class="rm-title">(?P<titulo>[^<]+)</span>', html):
         d = m.groupdict()
         tag = re.search(r'data-tag="([^"]+)"', d["resto"])
         d["tag"] = tag.group(1) if tag else ""

@@ -22,20 +22,43 @@ Publicado em <https://govhub-br.github.io/govhub-roadmap/> pelo GitHub Pages
 A view de doc lê `docs/<slug>.md` com `fetch()`. Isso **não funciona em `file://`** —
 para testar localmente, `python3 -m http.server 8000`.
 
+## Faixas
+
+Dentro de cada seção os documentos ficam em cinco faixas, sempre nesta ordem.
+A faixa diz o **papel** do documento no percurso de leitura; o selo diz o **tipo**
+Diátaxis. São eixos independentes — uma recomendação pode ser guia ou explicação.
+
+| Faixa | id do rótulo | Papel | Tipo mais comum |
+|---|---|---|---|
+| *(introdução)* | — | porta de entrada da seção | explicação |
+| Entender | `band-<sec>-entender` | contexto e conceitos | explicação |
+| Praticar | `band-<sec>-praticar` | aprender fazendo | tutorial |
+| Resolver | `band-<sec>-resolver` | resolver um problema | guia |
+| Consultar | `band-<sec>-consultar` | achar um dado | referência |
+| Recomendações | `band-<sec>-recomendacoes` | o que fazer e evitar | guia ou explicação |
+
+A introdução fica presa direto no nó da seção, com a classe extra `intro`. As
+demais penduram no rótulo da sua faixa.
+
+Faixa sem documento renderiza tracejada, com "nenhum documento nesta faixa
+ainda". **Não esconda uma faixa vazia** — ela é a lacuna que o roadmap existe
+para mostrar.
+
 ## Seções
 
-A espinha é encadeada: cada seção tem `data-parent` apontando para a anterior.
-Não reordene sem ajustar essa cadeia, ou as arestas ficam cruzadas.
+A espinha é encadeada: cada seção tem `data-parent` apontando para a última
+faixa da seção anterior. Não reordene sem ajustar essa cadeia, ou as arestas
+ficam cruzadas.
 
 | Seção | id do nó | data-parent | prefixo do slug |
 |---|---|---|---|
 | Configurações Gerais | `sec-config` | `rm-root` | `cfg-` |
-| Arquitetura | `sec-arch` | `sec-config` | `arch-` |
-| Dados & Pipeline | `sec-data` | `sec-arch` | `data-` |
-| Dashboards & Relatórios | `sec-dash` | `sec-data` | `dash-` |
-| Infraestrutura | `sec-infra` | `sec-dash` | `infra-` |
-| Governança | `sec-gov` | `sec-infra` | `gov-` |
-| Comunidade & Contribuição | `sec-community` | `sec-gov` | `com-` |
+| Arquitetura | `sec-arch` | `band-config-recomendacoes` | `arch-` |
+| Dados & Pipeline | `sec-data` | `band-arch-recomendacoes` | `data-` |
+| Dashboards & Relatórios | `sec-dash` | `band-data-recomendacoes` | `dash-` |
+| Infraestrutura | `sec-infra` | `band-dash-recomendacoes` | `infra-` |
+| Governança | `sec-gov` | `band-infra-recomendacoes` | `gov-` |
+| Comunidade & Contribuição | `sec-community` | `band-gov-recomendacoes` | `com-` |
 
 ## Slugs
 
@@ -56,18 +79,23 @@ O nome do arquivo é `docs/<slug>.md`. O atributo `data-md` do box guarda o slug
 Uma linha só, dentro da `<div class="rm-row">` da seção:
 
 ```html
-      <div class="rm-item" id="dash-11" data-parent="sec-dash" data-type="guia" data-md="dash-11-exportar-dados"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Exportar dados de um gráfico</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="dash-12" data-sec="dash" data-parent="band-dash-resolver" data-type="guia" data-md="dash-12-exportar-dados"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Exportar dados de um gráfico</span><span class="type guia">guia</span></div>
 ```
 
 Atributos:
 
 | Atributo | Valores | Para quê |
 |---|---|---|
-| `id` | curto e único (`dash-11`) | chave do progresso no localStorage |
-| `data-parent` | `sec-<chave>` | de onde sai a aresta |
+| `id` | curto e único (`dash-12`) | chave do progresso no localStorage |
+| `data-sec` | a chave da seção | agrupa o progresso e os scripts |
+| `data-parent` | `band-<sec>-<faixa>` | de onde sai a aresta |
 | `data-type` | `tutorial` `guia` `referencia` `explicacao` | cor do selo e filtro |
 | `data-md` | o slug, sem `.md` | qual arquivo abrir |
 | `data-tag` | `lacuna` `gap` `dup` `rascunho` | opcional; estado do documento |
+
+`data-sec` e `data-parent` precisam concordar: um box em `band-dash-resolver`
+tem que ter `data-sec="dash"`. O `verificar.py` confere que o `data-parent`
+aponta para um id existente.
 
 O `<span class="type …">` precisa do **rótulo com acento** (`referência`,
 `explicação`), enquanto a classe e o `data-type` usam a forma sem acento

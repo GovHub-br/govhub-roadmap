@@ -95,10 +95,12 @@ Siga o modelo do tipo em `references/modelos-diataxis.md`. Regras de forma:
 Documento de box **já existente**: nada a fazer no `index.html` — o `data-md` já
 aponta pra lá. Só remova a tag de estado (`rascunho`, `gap`) se ela deixou de valer.
 
-Documento **novo**: insira o box na seção certa. Formato exato:
+Documento **novo**: insira o box na **faixa** certa da seção. Decida a faixa pelo
+papel do documento — Entender, Praticar, Resolver, Consultar ou Recomendações —
+e ponha o `data-parent` no rótulo dela. Formato exato:
 
 ```html
-      <div class="rm-item" id="<id-curto>" data-parent="sec-<chave>" data-type="<tipo>" data-md="<slug>"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title"><Título></span><span class="type <tipo>"><rótulo></span></div>
+      <div class="rm-item" id="<id-curto>" data-sec="<chave>" data-parent="band-<chave>-<faixa>" data-type="<tipo>" data-md="<slug>"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title"><Título></span><span class="type <tipo>"><rótulo></span></div>
 ```
 
 Detalhes em `references/estrutura-do-repo.md`.

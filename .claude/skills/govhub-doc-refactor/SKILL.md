@@ -126,7 +126,8 @@ Ao extrair conteúdo, deixe no documento de origem um link para onde ele foi.
 
 Toda alteração estrutural reflete no `index.html`:
 
-- documento novo extraído → **box novo** na mesma seção
+- documento novo extraído → **box novo**, na faixa que corresponde ao seu papel
+  (Entender, Praticar, Resolver, Consultar ou Recomendações)
 - tipo corrigido → `data-type` **e** a classe e o rótulo do selo, os três juntos
 - pendência resolvida → remova ou troque a `data-tag`
 - documento fundido → remova o box do que sumiu

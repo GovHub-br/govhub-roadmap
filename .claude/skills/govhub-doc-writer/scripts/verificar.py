@@ -69,12 +69,14 @@ def main():
 
     # ---- 1. ligação box <-> arquivo
     boxes = re.findall(
-        r'<div class="rm-item" id="([^"]+)" data-parent="sec-([^"]+)"'
-        r' data-type="([^"]+)" data-md="([^"]+)"([^>]*)>'
+        r'<div class="rm-item[^"]*" id="([^"]+)" data-sec="([^"]+)"'
+        r' data-parent="([^"]+)" data-type="([^"]+)" data-md="([^"]+)"([^>]*)>'
         r'.*?<span class="rm-title">([^<]+)</span>'
         r'(?:<span class="type ([^"]+)">([^<]+)</span>)?', html)
 
-    slugs = {b[3] for b in boxes}
+    ids_existentes = set(re.findall(r'\bid="([^"]+)"', html))
+
+    slugs = {b[4] for b in boxes}
     for s in sorted(slugs - arquivos):
         erro("box aponta para docs/%s.md, que não existe" % s)
     for s in sorted(arquivos - slugs):
@@ -84,9 +86,11 @@ def main():
     ids = [b[0] for b in boxes]
     for dup in {i for i in ids if ids.count(i) > 1}:
         erro("id de box repetido: %s" % dup)
-    for bid, sec, tipo, slug, resto, titulo, cls, rotulo in boxes:
+    for bid, sec, parent, tipo, slug, resto, titulo, cls, rotulo in boxes:
         if sec not in SECOES:
-            erro("%s: seção 'sec-%s' não existe" % (slug, sec))
+            erro("%s: data-sec='%s' não é uma seção conhecida" % (slug, sec))
+        if parent not in ids_existentes:
+            erro("%s: data-parent='%s' não existe no documento" % (slug, parent))
         if tipo not in TIPOS:
             erro("%s: data-type='%s' inválido" % (slug, tipo))
             continue

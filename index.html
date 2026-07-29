@@ -308,6 +308,44 @@
     #search{width:100%;}
   }
 
+  /* Faixas: papel do documento dentro da seção (ordem de leitura) */
+  .rm-band{
+    position:relative;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:5px 20px;
+    font-size:10.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--purple-700);
+    box-shadow:0 1px 2px rgba(80,40,120,.06);
+    white-space:nowrap;
+  }
+  .rm-band.vazia{
+    border-style:dashed;
+    background:transparent;
+    box-shadow:none;
+    color:var(--text-muted);
+    font-weight:600;
+  }
+  .rm-vazio{
+    margin-top:12px;
+    font-size:11.5px;
+    font-style:italic;
+    color:var(--text-muted);
+  }
+  .rm-item.intro{
+    margin-top:16px;
+    background:var(--purple-light);
+    border-color:var(--secondary-purple);
+    font-weight:600;
+    font-size:13px;
+    padding:9px 16px 9px 12px;
+  }
+  .rm-gap.pequeno{height:22px;}
+
   /* ===================== VIEW: INSTALAÇÃO ===================== */
   #view-instalacao header{
     position:sticky;
@@ -597,7 +635,7 @@
 <div class="topbar">
   <div>
     <h1>GovHub &mdash; Documenta&ccedil;&atilde;o</h1>
-    <div class="sub">Roadmap completo &middot; 47 documentos &middot; tipo pelo framework Di&aacute;taxis</div>
+    <div class="sub">Roadmap completo &middot; 83 documentos em 7 se&ccedil;&otilde;es &middot; tipo pelo framework Di&aacute;taxis</div>
   </div>
   <div class="topbar-right">
     <div class="overall"><span id="overallLabel">0/0</span><div class="bar"><span id="overallBar"></span></div></div>
@@ -614,144 +652,405 @@
     <span class="type referencia" data-type="referencia">refer&ecirc;ncia</span>
     <span class="type explicacao" data-type="explicacao">explica&ccedil;&atilde;o</span>
   </div>
-  <div class="legend-hint">clique num box para abrir o documento &middot; clique no quadrado para marcar como lido</div>
+  <div class="legend-hint">cada se&ccedil;&atilde;o segue a mesma ordem: entender &rarr; praticar &rarr; resolver &rarr; consultar &rarr; recomenda&ccedil;&otilde;es</div>
 </div>
 
 <div class="rm-canvas" id="rmCanvas">
   <svg id="rmEdges"></svg>
 
   <div class="rm-stage">
-    <div class="rm-node root" id="rm-root">GovHub &mdash; Documenta&ccedil;&atilde;o<div class="note">47 documentos em 7 se&ccedil;&otilde;es</div></div>
+    <div class="rm-node root" id="rm-root">GovHub &mdash; Documenta&ccedil;&atilde;o<div class="note">83 documentos em 7 se&ccedil;&otilde;es</div></div>
   </div>
   <div class="rm-gap"></div>
   <div class="rm-stage">
     <div class="rm-node section" id="sec-config" data-parent="rm-root">
-      <span class="sec-title">Configurações Gerais</span><span class="sec-count" data-count="config">0/7</span>
-      <div class="note">Primeiro contato com o projeto: instalar, configurar variáveis, conectar fontes e resolver os tropeços mais comuns do dia 1.</div>
+      <span class="sec-title">Configurações Gerais</span><span class="sec-count" data-count="config">0/11</span>
     </div>
-    <div class="rm-row">
-      <div class="rm-item" id="cfg-1" data-parent="sec-config" data-type="tutorial" data-md="cfg-01-instalacao"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Instalação</span><span class="type tutorial">tutorial</span></div>
-      <div class="rm-item" id="cfg-2" data-parent="sec-config" data-type="tutorial" data-md="cfg-02-deploy-inicial"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Deploy Inicial</span><span class="type tutorial">tutorial</span></div>
-      <div class="rm-item" id="cfg-3" data-parent="sec-config" data-type="referencia" data-md="cfg-03-requisitos"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Requisitos</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="cfg-4" data-parent="sec-config" data-type="guia" data-md="cfg-04-conectar-fontes"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Conectar Fontes</span><span class="type guia">guia</span></div>
-      <div class="rm-item" id="cfg-5" data-parent="sec-config" data-type="referencia" data-md="cfg-05-secrets"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Gerenciamento de Secrets</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="cfg-6" data-parent="sec-config" data-type="guia" data-md="cfg-06-git-workflow"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Git Workflow</span><span class="type guia">guia</span></div>
-      <div class="rm-item" id="cfg-7" data-parent="sec-config" data-type="guia" data-md="cfg-07-troubleshooting"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Troubleshooting</span><span class="type guia">guia</span></div>
-    </div>
+      <div class="rm-item intro" id="cfg-0" data-sec="config" data-parent="sec-config" data-type="explicacao" data-md="cfg-00-introducao" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Introdução: Configurações Gerais</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
   </div>
   <div class="rm-gap"></div>
 
   <div class="rm-stage">
-    <div class="rm-node section" id="sec-arch" data-parent="sec-config">
-      <span class="sec-title">Arquitetura</span><span class="sec-count" data-count="arch">0/5</span>
-      <div class="note">Como as peças se encaixam — contexto para quem vai além de rodar comandos e precisa entender o porquê.</div>
-    </div>
+    <div class="rm-band" id="band-config-entender" data-parent="cfg-0">Entender</div>
     <div class="rm-row">
-      <div class="rm-item" id="arch-1" data-parent="sec-arch" data-type="explicacao" data-md="arch-01-visao-geral"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Visão Geral da Arquitetura</span><span class="type explicacao">explicação</span></div>
-      <div class="rm-item" id="arch-2" data-parent="sec-arch" data-type="explicacao" data-md="arch-02-fluxo-de-dados"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fluxo de Dados</span><span class="type explicacao">explicação</span></div>
-      <div class="rm-item" id="arch-3" data-parent="sec-arch" data-type="explicacao" data-md="arch-03-arquitetura-medallion"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Arquitetura Medallion</span><span class="type explicacao">explicação</span></div>
-      <div class="rm-item" id="arch-4" data-parent="sec-arch" data-type="referencia" data-md="arch-04-componentes"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Componentes</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="arch-5" data-parent="sec-arch" data-type="referencia" data-md="arch-05-fontes-de-dados" data-tag="dup"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fontes de Dados</span><span class="type referencia">referência</span><span class="tag">dup</span></div>
+      <div class="rm-item" id="cfg-9" data-sec="config" data-parent="band-config-entender" data-type="explicacao" data-md="cfg-09-ambiente-local-vs-producao" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Ambiente local vs. produção</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="cfg-10" data-sec="config" data-parent="band-config-entender" data-type="explicacao" data-md="cfg-10-anatomia-do-make-setup" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Anatomia do make setup</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
     </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-config-praticar" data-parent="band-config-entender">Praticar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="cfg-1" data-sec="config" data-parent="band-config-praticar" data-type="tutorial" data-md="cfg-01-instalacao"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Instalação</span><span class="type tutorial">tutorial</span></div>
+      <div class="rm-item" id="cfg-2" data-sec="config" data-parent="band-config-praticar" data-type="tutorial" data-md="cfg-02-deploy-inicial"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Deploy Inicial</span><span class="type tutorial">tutorial</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-config-resolver" data-parent="band-config-praticar">Resolver</div>
+    <div class="rm-row">
+      <div class="rm-item" id="cfg-4" data-sec="config" data-parent="band-config-resolver" data-type="guia" data-md="cfg-04-conectar-fontes"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Conectar Fontes</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="cfg-6" data-sec="config" data-parent="band-config-resolver" data-type="guia" data-md="cfg-06-git-workflow"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Git Workflow</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="cfg-7" data-sec="config" data-parent="band-config-resolver" data-type="guia" data-md="cfg-07-troubleshooting"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Troubleshooting</span><span class="type guia">guia</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-config-consultar" data-parent="band-config-resolver">Consultar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="cfg-3" data-sec="config" data-parent="band-config-consultar" data-type="referencia" data-md="cfg-03-requisitos"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Requisitos</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="cfg-5" data-sec="config" data-parent="band-config-consultar" data-type="referencia" data-md="cfg-05-secrets"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Gerenciamento de Secrets</span><span class="type referencia">referência</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-config-recomendacoes" data-parent="band-config-consultar">Recomendações</div>
+    <div class="rm-row">
+      <div class="rm-item" id="cfg-8" data-sec="config" data-parent="band-config-recomendacoes" data-type="guia" data-md="cfg-08-recomendacoes" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Recomendações de configuração</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-arch" data-parent="band-config-recomendacoes">
+      <span class="sec-title">Arquitetura</span><span class="sec-count" data-count="arch">0/11</span>
+    </div>
+      <div class="rm-item intro" id="arch-0" data-sec="arch" data-parent="sec-arch" data-type="explicacao" data-md="arch-00-introducao" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Introdução: Arquitetura</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
   </div>
   <div class="rm-gap"></div>
 
   <div class="rm-stage">
-    <div class="rm-node section" id="sec-data" data-parent="sec-arch">
-      <span class="sec-title">Dados &amp; Pipeline</span><span class="sec-count" data-count="data">0/8</span>
-      <div class="note">O que os dados significam (dicionário) e como eles se movem até virar tabela confiável (Airflow + dbt).</div>
-    </div>
+    <div class="rm-band" id="band-arch-entender" data-parent="arch-0">Entender</div>
     <div class="rm-row">
-      <div class="rm-item" id="data-1" data-parent="sec-data" data-type="referencia" data-md="data-01-dicionario-de-dados"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Dicionário de Dados</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="data-2" data-parent="sec-data" data-type="explicacao" data-md="data-02-dbt-visao-geral"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">dbt — Visão Geral</span><span class="type explicacao">explicação</span></div>
-      <div class="rm-item" id="data-3" data-parent="sec-data" data-type="referencia" data-md="data-03-dbt-modelos-testes-macros" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">dbt — Modelos / Testes / Macros / Snapshots / Documentação</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
-      <div class="rm-item" id="data-4" data-parent="sec-data" data-type="referencia" data-md="data-04-ingestao-de-dados" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Ingestão de Dados</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
-      <div class="rm-item" id="data-5" data-parent="sec-data" data-type="referencia" data-md="data-05-qualidade-de-dados" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Qualidade de Dados</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
-      <div class="rm-item" id="data-6" data-parent="sec-data" data-type="referencia" data-md="data-06-observabilidade"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Observabilidade</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="data-7" data-parent="sec-data" data-type="referencia" data-md="data-07-padroes-de-engenharia"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Padrões de Engenharia</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="data-8" data-parent="sec-data" data-type="explicacao" data-md="data-08-apache-airflow" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Apache Airflow</span><span class="type explicacao">explicação</span><span class="tag">lacuna</span></div>
+      <div class="rm-item" id="arch-1" data-sec="arch" data-parent="band-arch-entender" data-type="explicacao" data-md="arch-01-visao-geral"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Visão Geral da Arquitetura</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="arch-2" data-sec="arch" data-parent="band-arch-entender" data-type="explicacao" data-md="arch-02-fluxo-de-dados"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fluxo de Dados</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="arch-3" data-sec="arch" data-parent="band-arch-entender" data-type="explicacao" data-md="arch-03-arquitetura-medallion"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Arquitetura Medallion</span><span class="type explicacao">explicação</span></div>
     </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-arch-praticar" data-parent="band-arch-entender">Praticar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="arch-6" data-sec="arch" data-parent="band-arch-praticar" data-type="tutorial" data-md="arch-06-seguir-um-dado" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Seguir um dado da fonte ao dashboard</span><span class="type tutorial">tutorial</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-arch-resolver" data-parent="band-arch-praticar">Resolver</div>
+    <div class="rm-row">
+      <div class="rm-item" id="arch-8" data-sec="arch" data-parent="band-arch-resolver" data-type="guia" data-md="arch-08-adicionar-fonte" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Adicionar uma nova fonte de dados</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="arch-9" data-sec="arch" data-parent="band-arch-resolver" data-type="guia" data-md="arch-09-escolher-camada" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Escolher a camada Medallion de um dado</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="arch-10" data-sec="arch" data-parent="band-arch-resolver" data-type="guia" data-md="arch-10-estender-para-fork" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Estender a arquitetura para um fork temático</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-arch-consultar" data-parent="band-arch-resolver">Consultar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="arch-4" data-sec="arch" data-parent="band-arch-consultar" data-type="referencia" data-md="arch-04-componentes"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Componentes</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="arch-5" data-sec="arch" data-parent="band-arch-consultar" data-type="referencia" data-md="arch-05-fontes-de-dados" data-tag="dup"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fontes de Dados</span><span class="type referencia">referência</span><span class="tag">dup</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-arch-recomendacoes" data-parent="band-arch-consultar">Recomendações</div>
+    <div class="rm-row">
+      <div class="rm-item" id="arch-7" data-sec="arch" data-parent="band-arch-recomendacoes" data-type="explicacao" data-md="arch-07-recomendacoes" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Recomendações de arquitetura</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-data" data-parent="band-arch-recomendacoes">
+      <span class="sec-title">Dados &amp; Pipeline</span><span class="sec-count" data-count="data">0/14</span>
+    </div>
+      <div class="rm-item intro" id="data-0" data-sec="data" data-parent="sec-data" data-type="explicacao" data-md="data-00-introducao" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Introdução: Dados &amp; Pipeline</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
   </div>
   <div class="rm-gap"></div>
 
   <div class="rm-stage">
-    <div class="rm-node section" id="sec-dash" data-parent="sec-data">
-      <span class="sec-title">Dashboards &amp; Relatórios</span><span class="sec-count" data-count="dash">0/10</span>
-      <div class="note">Trilha de treinamento pra quem cria e mantém dashboards no Superset e precisa gerar relatórios pros gestores.</div>
-    </div>
+    <div class="rm-band" id="band-data-entender" data-parent="data-0">Entender</div>
     <div class="rm-row">
-      <div class="rm-item" id="dash-1" data-parent="sec-dash" data-type="explicacao" data-md="dash-01-superset-no-govhub" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">O que é o Superset no GovHub</span><span class="type explicacao">explicação</span><span class="tag">rascunho</span></div>
-      <div class="rm-item" id="dash-2" data-parent="sec-dash" data-type="tutorial" data-md="dash-02-primeiro-dashboard" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Criar seu primeiro dashboard do zero</span><span class="type tutorial">tutorial</span><span class="tag">rascunho</span></div>
-      <div class="rm-item" id="dash-3" data-parent="sec-dash" data-type="guia" data-md="dash-03-conectar-dataset" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Conectar um dashboard a um novo dataset</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
-      <div class="rm-item" id="dash-4" data-parent="sec-dash" data-type="guia" data-md="dash-04-filtros-drill-down" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Adicionar filtros e drill-down</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
-      <div class="rm-item" id="dash-5" data-parent="sec-dash" data-type="referencia" data-md="dash-05-tipos-de-grafico" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Tipos de gráfico e quando usar cada um</span><span class="type referencia">referência</span><span class="tag">rascunho</span></div>
-      <div class="rm-item" id="dash-6" data-parent="sec-dash" data-type="guia" data-md="dash-06-manter-dashboard" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Manter um dashboard existente</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
-      <div class="rm-item" id="dash-7" data-parent="sec-dash" data-type="guia" data-md="dash-07-relatorios" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Gerar e agendar relatórios</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
-      <div class="rm-item" id="dash-8" data-parent="sec-dash" data-type="referencia" data-md="dash-08-permissoes-papeis" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Permissões e papéis</span><span class="type referencia">referência</span><span class="tag">rascunho</span></div>
-      <div class="rm-item" id="dash-9" data-parent="sec-dash" data-type="explicacao" data-md="dash-09-dashboard-vs-relatorio" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Dashboard vivo vs. relatório estático</span><span class="type explicacao">explicação</span><span class="tag">rascunho</span></div>
-      <div class="rm-item" id="dash-10" data-parent="sec-dash" data-type="referencia" data-md="dash-10-jupyterhub" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">JupyterHub</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
+      <div class="rm-item" id="data-2" data-sec="data" data-parent="band-data-entender" data-type="explicacao" data-md="data-02-dbt-visao-geral"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">dbt — Visão Geral</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="data-8" data-sec="data" data-parent="band-data-entender" data-type="explicacao" data-md="data-08-apache-airflow" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Apache Airflow</span><span class="type explicacao">explicação</span><span class="tag">lacuna</span></div>
     </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-data-praticar" data-parent="band-data-entender">Praticar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="data-9" data-sec="data" data-parent="band-data-praticar" data-type="tutorial" data-md="data-09-primeiro-modelo-dbt" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Criar seu primeiro modelo dbt</span><span class="type tutorial">tutorial</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-data-resolver" data-parent="band-data-praticar">Resolver</div>
+    <div class="rm-row">
+      <div class="rm-item" id="data-10" data-sec="data" data-parent="band-data-resolver" data-type="guia" data-md="data-10-ingerir-fonte" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Ingerir uma nova fonte</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="data-11" data-sec="data" data-parent="band-data-resolver" data-type="guia" data-md="data-11-depurar-dag" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Depurar uma DAG que falhou</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="data-12" data-sec="data" data-parent="band-data-resolver" data-type="guia" data-md="data-12-corrigir-teste-dbt" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Corrigir um teste dbt que falhou</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="data-13" data-sec="data" data-parent="band-data-resolver" data-type="guia" data-md="data-13-reprocessar-periodo" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Reprocessar um período</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-data-consultar" data-parent="band-data-resolver">Consultar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="data-1" data-sec="data" data-parent="band-data-consultar" data-type="referencia" data-md="data-01-dicionario-de-dados"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Dicionário de Dados</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="data-3" data-sec="data" data-parent="band-data-consultar" data-type="referencia" data-md="data-03-dbt-modelos-testes-macros" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">dbt — Modelos / Testes / Macros / Snapshots / Documentação</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
+      <div class="rm-item" id="data-4" data-sec="data" data-parent="band-data-consultar" data-type="referencia" data-md="data-04-ingestao-de-dados" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Ingestão de Dados</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
+      <div class="rm-item" id="data-5" data-sec="data" data-parent="band-data-consultar" data-type="referencia" data-md="data-05-qualidade-de-dados" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Qualidade de Dados</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
+      <div class="rm-item" id="data-6" data-sec="data" data-parent="band-data-consultar" data-type="referencia" data-md="data-06-observabilidade"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Observabilidade</span><span class="type referencia">referência</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-data-recomendacoes" data-parent="band-data-consultar">Recomendações</div>
+    <div class="rm-row">
+      <div class="rm-item" id="data-7" data-sec="data" data-parent="band-data-recomendacoes" data-type="referencia" data-md="data-07-padroes-de-engenharia"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Padrões de Engenharia</span><span class="type referencia">referência</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-dash" data-parent="band-data-recomendacoes">
+      <span class="sec-title">Dashboards &amp; Relatórios</span><span class="sec-count" data-count="dash">0/12</span>
+    </div>
+      <div class="rm-item intro" id="dash-0" data-sec="dash" data-parent="sec-dash" data-type="explicacao" data-md="dash-00-introducao" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Introdução: Dashboards &amp; Relatórios</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
   </div>
   <div class="rm-gap"></div>
 
   <div class="rm-stage">
-    <div class="rm-node section" id="sec-infra" data-parent="sec-dash">
-      <span class="sec-title">Infraestrutura</span><span class="sec-count" data-count="infra">0/4</span>
-      <div class="note">Peças de baixo nível — normalmente consulta pontual, não leitura corrida.</div>
-    </div>
+    <div class="rm-band" id="band-dash-entender" data-parent="dash-0">Entender</div>
     <div class="rm-row">
-      <div class="rm-item" id="infra-1" data-parent="sec-infra" data-type="referencia" data-md="infra-01-kubernetes"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Kubernetes</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="infra-2" data-parent="sec-infra" data-type="referencia" data-md="infra-02-argo-cd-gitops"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Argo CD (GitOps)</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="infra-3" data-parent="sec-infra" data-type="referencia" data-md="infra-03-minio"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">MinIO</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="infra-4" data-parent="sec-infra" data-type="referencia" data-md="infra-04-postgresql"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">PostgreSQL</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="dash-1" data-sec="dash" data-parent="band-dash-entender" data-type="explicacao" data-md="dash-01-superset-no-govhub" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">O que é o Superset no GovHub</span><span class="type explicacao">explicação</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-9" data-sec="dash" data-parent="band-dash-entender" data-type="explicacao" data-md="dash-09-dashboard-vs-relatorio" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Dashboard vivo vs. relatório estático</span><span class="type explicacao">explicação</span><span class="tag">rascunho</span></div>
     </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-dash-praticar" data-parent="band-dash-entender">Praticar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="dash-2" data-sec="dash" data-parent="band-dash-praticar" data-type="tutorial" data-md="dash-02-primeiro-dashboard" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Criar seu primeiro dashboard do zero</span><span class="type tutorial">tutorial</span><span class="tag">rascunho</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-dash-resolver" data-parent="band-dash-praticar">Resolver</div>
+    <div class="rm-row">
+      <div class="rm-item" id="dash-3" data-sec="dash" data-parent="band-dash-resolver" data-type="guia" data-md="dash-03-conectar-dataset" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Conectar um dashboard a um novo dataset</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-4" data-sec="dash" data-parent="band-dash-resolver" data-type="guia" data-md="dash-04-filtros-drill-down" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Adicionar filtros e drill-down</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-6" data-sec="dash" data-parent="band-dash-resolver" data-type="guia" data-md="dash-06-manter-dashboard" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Manter um dashboard existente</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-7" data-sec="dash" data-parent="band-dash-resolver" data-type="guia" data-md="dash-07-relatorios" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Gerar e agendar relatórios</span><span class="type guia">guia</span><span class="tag">rascunho</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-dash-consultar" data-parent="band-dash-resolver">Consultar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="dash-5" data-sec="dash" data-parent="band-dash-consultar" data-type="referencia" data-md="dash-05-tipos-de-grafico" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Tipos de gráfico e quando usar cada um</span><span class="type referencia">referência</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-8" data-sec="dash" data-parent="band-dash-consultar" data-type="referencia" data-md="dash-08-permissoes-papeis" data-tag="rascunho"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Permissões e papéis</span><span class="type referencia">referência</span><span class="tag">rascunho</span></div>
+      <div class="rm-item" id="dash-10" data-sec="dash" data-parent="band-dash-consultar" data-type="referencia" data-md="dash-10-jupyterhub" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">JupyterHub</span><span class="type referencia">referência</span><span class="tag">lacuna</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-dash-recomendacoes" data-parent="band-dash-consultar">Recomendações</div>
+    <div class="rm-row">
+      <div class="rm-item" id="dash-11" data-sec="dash" data-parent="band-dash-recomendacoes" data-type="guia" data-md="dash-11-recomendacoes" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Recomendações para dashboards</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-infra" data-parent="band-dash-recomendacoes">
+      <span class="sec-title">Infraestrutura</span><span class="sec-count" data-count="infra">0/12</span>
+    </div>
+      <div class="rm-item intro" id="infra-0" data-sec="infra" data-parent="sec-infra" data-type="explicacao" data-md="infra-00-introducao" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Introdução: Infraestrutura</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
   </div>
   <div class="rm-gap"></div>
 
   <div class="rm-stage">
-    <div class="rm-node section" id="sec-gov" data-parent="sec-infra">
-      <span class="sec-title">Governança</span><span class="sec-count" data-count="gov">0/4</span>
-      <div class="note">Controle de acesso, segurança e catálogo de dados — parte já em produção, parte ainda roadmap.</div>
-    </div>
+    <div class="rm-band" id="band-infra-entender" data-parent="infra-0">Entender</div>
     <div class="rm-row">
-      <div class="rm-item" id="gov-1" data-parent="sec-gov" data-type="explicacao" data-md="gov-01-openmetadata"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">OpenMetadata</span><span class="type explicacao">explicação</span></div>
-      <div class="rm-item" id="gov-2" data-parent="sec-gov" data-type="explicacao" data-md="gov-02-trino-ranger"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Trino + Ranger</span><span class="type explicacao">explicação</span></div>
-      <div class="rm-item" id="gov-3" data-parent="sec-gov" data-type="referencia" data-md="gov-03-controle-de-acesso"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Controle de Acesso</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="gov-4" data-parent="sec-gov" data-type="referencia" data-md="gov-04-seguranca"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Segurança</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="infra-7" data-sec="infra" data-parent="band-infra-entender" data-type="explicacao" data-md="infra-07-govhub-em-kubernetes" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Como o GovHub roda em Kubernetes</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="infra-8" data-sec="infra" data-parent="band-infra-entender" data-type="explicacao" data-md="infra-08-gitops" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">GitOps: como uma mudança chega em produção</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
     </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-infra-praticar" data-parent="band-infra-entender">Praticar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="infra-5" data-sec="infra" data-parent="band-infra-praticar" data-type="tutorial" data-md="infra-05-acessar-o-cluster" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Acessar o cluster e ver os serviços</span><span class="type tutorial">tutorial</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-infra-resolver" data-parent="band-infra-praticar">Resolver</div>
+    <div class="rm-row">
+      <div class="rm-item" id="infra-9" data-sec="infra" data-parent="band-infra-resolver" data-type="guia" data-md="infra-09-publicar-mudanca" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Publicar uma mudança de infraestrutura</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="infra-10" data-sec="infra" data-parent="band-infra-resolver" data-type="guia" data-md="infra-10-restaurar-backup" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Restaurar um backup do PostgreSQL</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="infra-11" data-sec="infra" data-parent="band-infra-resolver" data-type="guia" data-md="infra-11-escalar-servico" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Escalar um serviço no limite</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-infra-consultar" data-parent="band-infra-resolver">Consultar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="infra-1" data-sec="infra" data-parent="band-infra-consultar" data-type="referencia" data-md="infra-01-kubernetes"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Kubernetes</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="infra-2" data-sec="infra" data-parent="band-infra-consultar" data-type="referencia" data-md="infra-02-argo-cd-gitops"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Argo CD (GitOps)</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="infra-3" data-sec="infra" data-parent="band-infra-consultar" data-type="referencia" data-md="infra-03-minio"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">MinIO</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="infra-4" data-sec="infra" data-parent="band-infra-consultar" data-type="referencia" data-md="infra-04-postgresql"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">PostgreSQL</span><span class="type referencia">referência</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-infra-recomendacoes" data-parent="band-infra-consultar">Recomendações</div>
+    <div class="rm-row">
+      <div class="rm-item" id="infra-6" data-sec="infra" data-parent="band-infra-recomendacoes" data-type="guia" data-md="infra-06-recomendacoes" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Recomendações de infraestrutura</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-gov" data-parent="band-infra-recomendacoes">
+      <span class="sec-title">Governança</span><span class="sec-count" data-count="gov">0/10</span>
+    </div>
+      <div class="rm-item intro" id="gov-0" data-sec="gov" data-parent="sec-gov" data-type="explicacao" data-md="gov-00-introducao" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Introdução: Governança</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
   </div>
   <div class="rm-gap"></div>
 
   <div class="rm-stage">
-    <div class="rm-node section" id="sec-community" data-parent="sec-gov">
-      <span class="sec-title">Comunidade &amp; Contribuição</span><span class="sec-count" data-count="community">0/9</span>
-      <div class="note">Como entrar, contribuir e sair de novo sem quebrar nada — hoje concentrado (demais) num único CONTRIBUTING.md.</div>
-    </div>
+    <div class="rm-band" id="band-gov-entender" data-parent="gov-0">Entender</div>
     <div class="rm-row">
-      <div class="rm-item" id="com-1" data-parent="sec-community" data-type="guia" data-md="com-01-como-contribuir"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Como Contribuir (fork → branch → PR)</span><span class="type guia">guia</span></div>
-      <div class="rm-item" id="com-2" data-parent="sec-community" data-type="referencia" data-md="com-02-padroes-commit-pr"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Padrões de commit / branch / PR / testes</span><span class="type referencia">referência</span></div>
-      <div class="rm-item" id="com-3" data-parent="sec-community" data-type="guia" data-md="com-03-revisao-de-prs"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Revisão de PRs</span><span class="type guia">guia</span></div>
-      <div class="rm-item" id="com-4" data-parent="sec-community" data-type="guia" data-md="com-04-criar-fork-tematico"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Criar Fork Temático</span><span class="type guia">guia</span></div>
-      <div class="rm-item" id="com-5" data-parent="sec-community" data-type="explicacao" data-md="com-05-fork-cidades"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fork Cidades</span><span class="type explicacao">explicação</span></div>
-      <div class="rm-item" id="com-6" data-parent="sec-community" data-type="explicacao" data-md="com-06-fork-minc"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fork MinC</span><span class="type explicacao">explicação</span></div>
-      <div class="rm-item" id="com-7" data-parent="sec-community" data-type="explicacao" data-md="com-07-pesquisa"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Pesquisa</span><span class="type explicacao">explicação</span></div>
-      <div class="rm-item" id="com-8" data-parent="sec-community" data-type="explicacao" data-md="com-08-roteiro-contribuidor" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Roteiro do Contribuidor</span><span class="type explicacao">explicação</span><span class="tag">lacuna</span></div>
-      <div class="rm-item" id="com-9" data-parent="sec-community" data-type="tutorial" data-md="com-09-primeiro-pr" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Primeiro PR, passo a passo</span><span class="type tutorial">tutorial</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="gov-1" data-sec="gov" data-parent="band-gov-entender" data-type="explicacao" data-md="gov-01-openmetadata"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">OpenMetadata</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="gov-2" data-sec="gov" data-parent="band-gov-entender" data-type="explicacao" data-md="gov-02-trino-ranger"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Trino + Ranger</span><span class="type explicacao">explicação</span></div>
     </div>
   </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-gov-praticar" data-parent="band-gov-entender">Praticar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="gov-5" data-sec="gov" data-parent="band-gov-praticar" data-type="tutorial" data-md="gov-05-catalogar-uma-tabela" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Catalogar sua primeira tabela</span><span class="type tutorial">tutorial</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-gov-resolver" data-parent="band-gov-praticar">Resolver</div>
+    <div class="rm-row">
+      <div class="rm-item" id="gov-7" data-sec="gov" data-parent="band-gov-resolver" data-type="guia" data-md="gov-07-conceder-acesso" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Conceder acesso a um novo integrante</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="gov-8" data-sec="gov" data-parent="band-gov-resolver" data-type="guia" data-md="gov-08-classificar-dado-sensivel" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Classificar um dado pessoal ou sensível</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="gov-9" data-sec="gov" data-parent="band-gov-resolver" data-type="guia" data-md="gov-09-registrar-dominio" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Registrar um domínio de dados</span><span class="type guia">guia</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-gov-consultar" data-parent="band-gov-resolver">Consultar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="gov-3" data-sec="gov" data-parent="band-gov-consultar" data-type="referencia" data-md="gov-03-controle-de-acesso"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Controle de Acesso</span><span class="type referencia">referência</span></div>
+      <div class="rm-item" id="gov-4" data-sec="gov" data-parent="band-gov-consultar" data-type="referencia" data-md="gov-04-seguranca"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Segurança</span><span class="type referencia">referência</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-gov-recomendacoes" data-parent="band-gov-consultar">Recomendações</div>
+    <div class="rm-row">
+      <div class="rm-item" id="gov-6" data-sec="gov" data-parent="band-gov-recomendacoes" data-type="explicacao" data-md="gov-06-recomendacoes" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Recomendações de governança</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-node section" id="sec-community" data-parent="band-gov-recomendacoes">
+      <span class="sec-title">Comunidade &amp; Contribuição</span><span class="sec-count" data-count="community">0/13</span>
+    </div>
+      <div class="rm-item intro" id="com-0" data-sec="community" data-parent="sec-community" data-type="explicacao" data-md="com-00-introducao" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Introdução: Comunidade &amp; Contribuição</span><span class="type explicacao">explicação</span><span class="tag">gap</span></div>
+  </div>
   <div class="rm-gap"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-community-entender" data-parent="com-0">Entender</div>
+    <div class="rm-row">
+      <div class="rm-item" id="com-5" data-sec="community" data-parent="band-community-entender" data-type="explicacao" data-md="com-05-fork-cidades"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fork Cidades</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="com-6" data-sec="community" data-parent="band-community-entender" data-type="explicacao" data-md="com-06-fork-minc"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Fork MinC</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="com-7" data-sec="community" data-parent="band-community-entender" data-type="explicacao" data-md="com-07-pesquisa"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Pesquisa</span><span class="type explicacao">explicação</span></div>
+      <div class="rm-item" id="com-8" data-sec="community" data-parent="band-community-entender" data-type="explicacao" data-md="com-08-roteiro-contribuidor" data-tag="lacuna"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Roteiro do Contribuidor</span><span class="type explicacao">explicação</span><span class="tag">lacuna</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-community-praticar" data-parent="band-community-entender">Praticar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="com-9" data-sec="community" data-parent="band-community-praticar" data-type="tutorial" data-md="com-09-primeiro-pr" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Primeiro PR, passo a passo</span><span class="type tutorial">tutorial</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-community-resolver" data-parent="band-community-praticar">Resolver</div>
+    <div class="rm-row">
+      <div class="rm-item" id="com-1" data-sec="community" data-parent="band-community-resolver" data-type="guia" data-md="com-01-como-contribuir"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Como Contribuir (fork → branch → PR)</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="com-3" data-sec="community" data-parent="band-community-resolver" data-type="guia" data-md="com-03-revisao-de-prs"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Revisão de PRs</span><span class="type guia">guia</span></div>
+      <div class="rm-item" id="com-4" data-sec="community" data-parent="band-community-resolver" data-type="guia" data-md="com-04-criar-fork-tematico"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Criar Fork Temático</span><span class="type guia">guia</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-community-consultar" data-parent="band-community-resolver">Consultar</div>
+    <div class="rm-row">
+      <div class="rm-item" id="com-10" data-sec="community" data-parent="band-community-consultar" data-type="referencia" data-md="com-10-glossario" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Glossário do GovHub</span><span class="type referencia">referência</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="com-11" data-sec="community" data-parent="band-community-consultar" data-type="referencia" data-md="com-11-mapa-dos-repositorios" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Mapa dos repositórios</span><span class="type referencia">referência</span><span class="tag">gap</span></div>
+      <div class="rm-item" id="com-12" data-sec="community" data-parent="band-community-consultar" data-type="referencia" data-md="com-12-onde-pedir-ajuda" data-tag="gap"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Onde pedir ajuda</span><span class="type referencia">referência</span><span class="tag">gap</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
+
+  <div class="rm-stage">
+    <div class="rm-band" id="band-community-recomendacoes" data-parent="band-community-consultar">Recomendações</div>
+    <div class="rm-row">
+      <div class="rm-item" id="com-2" data-sec="community" data-parent="band-community-recomendacoes" data-type="referencia" data-md="com-02-padroes-commit-pr"><button class="rm-check" type="button" aria-label="marcar como lido"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></button><span class="rm-title">Padrões de commit / branch / PR / testes</span><span class="type referencia">referência</span></div>
+    </div>
+  </div>
+  <div class="rm-gap pequeno"></div>
 
 </div>
 
 <footer>
   <h2>Como usar</h2>
   <ul>
-    <li>A espinha central percorre as 7 se&ccedil;&otilde;es na ordem em que fazem sentido para quem chega: instalar, entender, operar, visualizar, sustentar, governar, contribuir.</li>
-    <li>Cada box pendurado numa se&ccedil;&atilde;o &eacute; um documento em <code>docs/</code>. Clique para abrir.</li>
-    <li>O selo colorido indica o tipo pelo framework Di&aacute;taxis &mdash; verde&nbsp;=&nbsp;tutorial (aprender fazendo), azul&nbsp;=&nbsp;guia (resolver um problema), roxo&nbsp;=&nbsp;refer&ecirc;ncia (consultar), marrom&nbsp;=&nbsp;explica&ccedil;&atilde;o (entender o porqu&ecirc;). Clique num selo do topo para destacar s&oacute; aquele tipo.</li>
-    <li>Selos tracejados marcam o que ainda precisa de decis&atilde;o: <strong>lacuna</strong> (tipo a confirmar), <strong>gap</strong> (n&atilde;o existe em lugar nenhum), <strong>dup</strong> (a fundir), <strong>rascunho</strong> (proposta a validar).</li>
+    <li>A espinha percorre as 7 se&ccedil;&otilde;es na ordem em que fazem sentido para quem chega: instalar, entender, operar, visualizar, sustentar, governar, contribuir.</li>
+    <li>Dentro de cada se&ccedil;&atilde;o a ordem &eacute; sempre a mesma: uma <strong>introdu&ccedil;&atilde;o</strong> logo abaixo do t&iacute;tulo, e depois <strong>entender &rarr; praticar &rarr; resolver &rarr; consultar &rarr; recomenda&ccedil;&otilde;es</strong>. As faixas dizem o que voc&ecirc; est&aacute; prestes a fazer; o selo colorido diz o tipo do documento. S&atilde;o eixos independentes.</li>
+    <li>Faixa marcada como vazia &eacute; lacuna real: aquela se&ccedil;&atilde;o ainda n&atilde;o tem nenhum documento daquele papel.</li>
+    <li>O selo indica o tipo pelo Di&aacute;taxis &mdash; verde&nbsp;=&nbsp;tutorial (aprender fazendo), azul&nbsp;=&nbsp;guia (resolver um problema), roxo&nbsp;=&nbsp;refer&ecirc;ncia (consultar), marrom&nbsp;=&nbsp;explica&ccedil;&atilde;o (entender o porqu&ecirc;). Clique num selo do topo para destacar s&oacute; aquele tipo.</li>
+    <li>Selos tracejados marcam o que precisa de decis&atilde;o: <strong>gap</strong> (n&atilde;o existe), <strong>lacuna</strong> (tipo a confirmar), <strong>dup</strong> (a fundir), <strong>rascunho</strong> (a validar).</li>
     <li>O quadrado &agrave; esquerda de cada box marca como lido &mdash; fica salvo no navegador.</li>
-    <li>O box <strong>Instala&ccedil;&atilde;o</strong> tem tamb&eacute;m um roadmap pr&oacute;prio, detalhando a p&aacute;gina passo a passo: <a href="#instalacao">ver</a>.</li>
+    <li>O box <strong>Instala&ccedil;&atilde;o</strong> tem tamb&eacute;m um roadmap pr&oacute;prio: <a href="#instalacao">ver</a>.</li>
   </ul>
 </footer>
 
@@ -891,7 +1190,6 @@
   var svg      = document.getElementById("rmEdges");
   var items    = Array.prototype.slice.call(document.querySelectorAll(".rm-item"));
   var linked   = Array.prototype.slice.call(document.querySelectorAll("#rmCanvas [data-parent]"));
-  var stages   = Array.prototype.slice.call(document.querySelectorAll("#rmCanvas .rm-stage"));
 
   function loadState(){
     try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
@@ -907,14 +1205,13 @@
 
   function updateProgress(){
     var totalAll = 0, doneAll = 0;
-    stages.forEach(function(stage){
-      var countEl = stage.querySelector(".sec-count");
-      if(!countEl) return;
-      var secItems = Array.prototype.slice.call(stage.querySelectorAll(".rm-item"));
-      var done = secItems.filter(function(n){ return n.classList.contains("done"); }).length;
-      totalAll += secItems.length;
+    Array.prototype.slice.call(document.querySelectorAll(".sec-count")).forEach(function(el){
+      var chave = el.getAttribute("data-count");
+      var daSecao = items.filter(function(n){ return n.getAttribute("data-sec") === chave; });
+      var done = daSecao.filter(function(n){ return n.classList.contains("done"); }).length;
+      totalAll += daSecao.length;
       doneAll  += done;
-      countEl.textContent = done + "/" + secItems.length;
+      el.textContent = done + "/" + daSecao.length;
     });
     var pct = totalAll ? Math.round(doneAll / totalAll * 100) : 0;
     document.getElementById("overallBar").style.width = pct + "%";
@@ -994,7 +1291,8 @@
 
       var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
       path.setAttribute("d", d);
-      if(n.classList.contains("rm-node")) path.setAttribute("class", "spine");
+      if(n.classList.contains("rm-node") || n.classList.contains("rm-band")
+         || n.classList.contains("intro")) path.setAttribute("class", "spine");
       svg.appendChild(path);
     });
   }

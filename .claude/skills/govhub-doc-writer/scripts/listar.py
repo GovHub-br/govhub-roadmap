@@ -2,7 +2,7 @@
 """Lista os boxes de uma seção do roadmap com o estado de cada documento.
 
 Uso:
-    python3 scripts/listar.py            # todas as seções, resumido
+    python3 scripts/listar.py            # todas as seções
     python3 scripts/listar.py dash        # só a seção de Dashboards
 
 Rode a partir da raiz do repositório govhub-roadmap.
@@ -10,6 +10,9 @@ Rode a partir da raiz do repositório govhub-roadmap.
 import os
 import re
 import sys
+
+ROTULO_FAIXA = {"entender": "Entender", "praticar": "Praticar", "resolver": "Resolver",
+                "consultar": "Consultar", "recomendacoes": "Recomendações"}
 
 SECOES = {
     "config": "Configurações Gerais",
@@ -22,10 +25,16 @@ SECOES = {
 }
 
 BOX = re.compile(
-    r'<div class="rm-item" id="(?P<id>[^"]+)" data-parent="sec-(?P<sec>[^"]+)"'
-    r' data-type="(?P<tipo>[^"]+)" data-md="(?P<slug>[^"]+)"(?P<resto>[^>]*)>'
-    r'.*?<span class="rm-title">(?P<titulo>[^<]+)</span>'
+    r'<div class="rm-item(?P<classes>[^"]*)" id="(?P<id>[^"]+)" data-sec="(?P<sec>[^"]+)" data-parent="(?P<parent>[^"]+)" data-type="(?P<tipo>[^"]+)" data-md="(?P<slug>[^"]+)"(?P<resto>[^>]*)>.*?<span class="rm-title">(?P<titulo>[^<]+)</span>'
 )
+
+
+def faixa_de(box):
+    """A faixa vem do pai: band-<sec>-<faixa>, ou a introdução, presa na seção."""
+    pai = box["parent"]
+    if pai.startswith("band-"):
+        return pai.rsplit("-", 1)[1]
+    return "intro"
 
 
 def estado(slug):
@@ -63,12 +72,18 @@ def main():
             continue
         print("\n%s  (%d documentos)" % (nome, len(da_secao)))
         print("-" * 74)
+        da_secao.sort(key=lambda b: (["intro"] + list(ROTULO_FAIXA)).index(faixa_de(b)))
+        faixa_atual = None
         for b in da_secao:
+            f = faixa_de(b)
+            if f != faixa_atual:
+                faixa_atual = f
+                print("  %s" % ("▸ introdução" if f == "intro" else ROTULO_FAIXA[f].upper()))
             tag = re.search(r'data-tag="([^"]+)"', b["resto"])
             st, pend = estado(b["slug"])
             total_pend += pend
             marca = {"escrito": "  ok"}.get(st, "  --")
-            print("%s %-34s %-11s %-13s %s%s" % (
+            print("  %s %-32s %-11s %-13s %s%s" % (
                 marca,
                 b["slug"],
                 b["tipo"],
